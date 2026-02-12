@@ -35,9 +35,9 @@ Da es sich hier um mein erstes richtiges kleines Projekt handelt möchte ich ein
 
 Das sollte alles selbstverständlich sein, aber ich sage es trotzdem.
 
-Ich weiß das OpenClaw nicht perfekt und sicher ist, derzeit, das sieht auch der Entwickler so.
+Ich weiß das OpenClaw nicht perfekt und sicher ist. Der Enwickler sieht es genauso.
 <br>
-Ich versuche alles lokal in VM´s aufzubauen. Die Rechen Modelle LLM werden ebenfalls Lokal betrieben. Ich versuche wegen der begrenzten lokalen Rechenleistung auch externe Modelle LLM einzubinden. Diese sollen nach Möglichkeit Free-Tokens, PrePaid Varianten für die Token Bezahlung haben und vor allem jederzeit stopp bar, oder abschaltbar sei.
+Ich versuche alles lokal in VM´s aufzubauen. Die Rechen-Modelle LLM werden ebenfalls Lokal betrieben. Ich versuche wegen der begrenzten lokalen Rechenleistung auch externe Modelle LLM einzubinden. Diese sollen nach Möglichkeit Free-Tokens, PrePaid Varianten für die Token Bezahlung haben und vor allem jederzeit stopp bar, oder abschaltbar sei.
 
 Es geht hier um ein rein privates Projekt. Zum Lernen über OpenClaw selbst, denn es ist unglaublich spannend und faszinierend zugleich. Und zum lernen und begreifen der LLM und wie alles in einander greift.
 Wie es weiter geht wir werden sehen,
@@ -58,6 +58,9 @@ Das System ist darauf ausgelegt, Cloud-Abhängigkeiten zu minimieren.
 | **Hardware** | Windows 11 Pro, NVIDIA RTX 3070 |
 | **Messenger** | WhatsApp (via Gateway) |
 | **Performance** | Latenz ~2s (Lokal) vs. 500ms (Cloud) |
+
+#### Hinweis: <br>
+Ich habe versucht den Token-Verbrauch in openclaw zu minimieren. Was sich natürlich auch auf die Antworten auswirkt. Ich habe versucht relativ minimalistische IDENTITY.md und SOUL.md zu erstellen. Derzeit liege ich bei der Konfiguration für das lokale LLM bei knapp unter 15.000 Toke und bei der Bezahl-Version auf Anthropic bei rund 18.000 Token.
 
 ---
 
