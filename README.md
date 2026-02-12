@@ -15,6 +15,37 @@ Das LLM und die Rechenlast der Ki wurden auf einen älteren Rechner mit NVIDIA K
 
 ---
 
+### Was mir wichtig ist:
+
+Da es sich hier um mein erstes richtiges kleines Projekt handelt möchte ich ein paar Spielregeln festlegen.
+<br>
+
+1.	Konstruktives Feedback ist erwünscht, solange,
+  - Es um das Projekt geht
+  - Gerne auch die Handhabung hier auf GitHub
+  - Rat und Tipps
+
+2.	Was ich nicht möchte:
+  - Belehrungen
+  - Beschimpfungen
+  - Beiträge die nicht zum Thema gehören
+  - Spam!!!
+
+  <br>
+
+Das sollte alles selbstverständlich sein, aber ich sage es trotzdem.
+
+Ich weiß das OpenClaw nicht perfekt und sicher ist, derzeit, das sieht auch der Entwickler so.
+<br>
+Ich versuche alles lokal in VM´s aufzubauen. Die Rechen Modelle LLM werden ebenfalls Lokal betrieben. Ich versuche wegen der begrenzten lokalen Rechenleistung auch externe Modelle LLM einzubinden. Diese sollen nach Möglichkeit Free-Tokens, PrePaid Varianten für die Token Bezahlung haben und vor allem jederzeit stopp bar, oder abschaltbar sei.
+
+Es geht hier um ein rein privates Projekt. Zum Lernen über OpenClaw selbst, denn es ist unglaublich spannend und faszinierend zugleich. Und zum lernen und begreifen der LLM und wie alles in einander greift.
+Wie es weiter geht wir werden sehen,
+
+#### hier ist der Weg das Ziel.
+
+---
+
 ## 🏗️ Architektur & Hardware
 
 Das System ist darauf ausgelegt, Cloud-Abhängigkeiten zu minimieren.
