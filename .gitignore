@@ -1,0 +1,39 @@
+# --- Security & Secrets (NIEMALS hochladen!) ---
+.env
+**/.env
+.openclaw/openclaw.json
+openclaw.json
+
+# --- OpenClaw Laufzeit-Daten (Privat!) ---
+# Chat-Verläufe und Logs
+MEMORY.md
+**/MEMORY.md
+messages.json
+**/messages.json
+
+# --- System & Logs ---
+.DS_Store
+Thumbs.db
+logs/
+*.log
+node_modules/
+
+# Session-Datenbanken und Speicher
+.openclaw/sessions/
+**/*.db
+**/*.sqlite
+
+# --- Sitzungs-Token & Anmeldedaten (Kritisch!) ---
+credentials/
+.openclaw/credentials/
+auth-profiles.json
+**/auth-profiles.json
+
+# --- Backups (falls du mal manuell sicherst) ---
+*.bak
+*.tar.gz
+*.zip
+
+# --- Erlaubte Vorlagen ---
+!openclaw.example.json
+!.env.example
