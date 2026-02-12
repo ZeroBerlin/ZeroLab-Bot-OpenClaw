@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.3-1",
+    "lastTouchedAt": "2026-02-08T13:25:05.520Z"
+  },
+  "models": {
+    "providers": {
+      "lmstudio": {
+        "baseUrl": "http://192.168.178.100:11434/v1",
+        "apiKey": "lmstudio-local",
+        "api": "openai-responses",
+        "models": [
+          {
+            "id": "meta-llama-3.1-8b-instruct",
+            "name": "Llama 3.1 8B ZeroLab",
+            "contextWindow": 16384,
+            "maxTokens": 4096,
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "lmstudio/meta-llama-3.1-8b-instruct"
+      },
+      "workspace": "/root/.openclaw/workspace"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "Agent-Token"
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "selfChatMode": true,
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "+555-Schuh
+      ],
+      "groupPolicy": "allowlist",
+      "debounceMs": 3000
+    }
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-08T13:25:05.512Z",
+    "lastRunVersion": "2026.2.3-1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  }
+}

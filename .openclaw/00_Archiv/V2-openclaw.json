@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.3-1",
+    "lastTouchedAt": "2026-02-08T13:25:05.520Z"
+  },
+  "models": {
+    "providers": {
+      "lmstudio": {
+        "baseUrl": "${LM_STUDIO_URL}",
+        "apiKey": "lmstudio-local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen2.5-coder-14b-instruct",
+            "name": "ZeroLab Qwen Coder",
+            "contextWindow": 16384,
+            "maxTokens": 4096,
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "lmstudio/qwen2.5-coder-14b-instruct"
+      },
+      "workspace": "/root/.openclaw/workspace"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "selfChatMode": true,
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "${MY_PHONE_NUMBER}"
+      ],
+      "groupPolicy": "allowlist",
+      "debounceMs": 3000
+    }
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-08T13:25:05.512Z",
+    "lastRunVersion": "2026.2.3-1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  }
+}
