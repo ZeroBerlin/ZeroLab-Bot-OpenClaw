@@ -41,6 +41,13 @@ Dieses Repository nutzt eine **strikte Trennung von Code und Geheimnissen**:
 *   ✅ **Enthalten:** Konfigurations-Struktur, Prompts (`IDENTITY.md`, `SOUL.md`), Tools.
 
 Die Datei `.gitignore` stellt sicher, dass `.env` und `openclaw.json` (mit echten Daten) lokal bleiben.
+<br>
+Wie? Die sensible Daten werden in Variablen geschrieben die sich in der .env befinden. <br>
+In der eigentlichen Konfigurationsdatei (openclaw.json) werden diese Varibeln aus der .evn abgerufen. <br>
+Somit kann man später die Konfiguration veröffentlichen, oder auch online gehen ohne das die: <br>
+API-Key´s | Tokens | Telefonnummer | oder sontige Daten, <br>
+die man nicht öffentlich teilen sollte, veröffentlicht werden.<br>
+Zum Uplaod dient hier die .gitignore damit z.B. die .env nicht mit hochgeladen wird.
 
 ---
 
