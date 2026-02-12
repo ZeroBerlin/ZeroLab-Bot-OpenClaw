@@ -1,4 +1,4 @@
-# 🦞 OpenClaw - ZeroLab Edition
+# 🦞 ZeroLab OpenClaw Edition
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
