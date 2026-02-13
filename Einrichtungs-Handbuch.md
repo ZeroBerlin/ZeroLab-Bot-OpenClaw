@@ -368,4 +368,70 @@ o  Security --------------------------------------------------------------------
 |    Yes / > No
 —
 ```
+1. Drücke die Pfeiltaste nach oben (oder unten), bis Yes farbig markiert/ausgewählt ist.
+2. Drücke Enter.
+
+```bash
+*  I understand this is powerful and inherently risky. Continue?
+|  > Yes /   No
+```
+
+Vorschau auf den nächsten Schritt: <br>
+Das System wird dich gleich nach dem "Onboarding mode" fragen (z.B. Quickstart oder Manual/Advanced).
+
+Ich werde den offiziellen "Happy Path" des Installers, für die Ordnerstruktur, die Session-Datenbanken und vor allem die BOOTSTRAP.md (das "Schlüpf-Ritual") sauber anlegen zu lassen.
+
+Später werden die einzelnen Dateien und Konfigurationen angepasst und überarbeitet.
+
+
+## 🔒 Sicherheitshinweise (WICHTIG)
+
+> [!WARNING]
+> **Bis nicht alle Dateien für die Konfiguration angepasst und überprüft wurden, sollten keine Tools installiert oder Zugriffe auf externe persönliche Daten konfiguriert werden!!!**
+
+Ich möchte Openclaw nicht produktiv nutzen, oder gar Zugriff auf meine persönlichen Daten gewähren. **Daher auch die strikte Trennung in einer virtuellen Umgebung**:
+
+*   🚫 **Keine echten Daten:** Passwörter, Telefonnummern, Session-Token, eMail-Adressen, etc.
+*   ✅ **LXC Container** Das System und die Software OpenClaw läuft in dieser Umgebung.
+
+```bash
+*  I understand this is powerful and inherently risky. Continue?
+|  > Yes /   No
+```
+
+Jetzt zum Nächsten Schritt. <br>
+**(Yes)** asuwählen und **(Enter)** drücken.
+
+```bash
+*  Onboarding mode
+|  > QuickStart (Configure details later via openclaw configure.)
+|    Manual
+```
+
+**(QuickStart)** auswählen und **(Enter)** drücken.
+
+```bash
+*  Model/auth provider
+|  > OpenAI (Codex OAuth + API key)
+|    Anthropic
+|    MiniMax
+|    Moonshot AI (Kimi K2.5)
+|    Google
+|    xAI (Grok)
+|    OpenRouter
+|    Qwen
+|    Z.AI
+|    Qianfan
+|    Copilot
+|    Vercel AI Gateway
+|    OpenCode Zen
+|    Xiaomi
+|    Synthetic
+|    Together AI
+|    Venice AI
+|    LiteLLM
+|    Cloudflare AI Gateway
+|    Custom Provider
+|    Skip for now
+```
 ...
