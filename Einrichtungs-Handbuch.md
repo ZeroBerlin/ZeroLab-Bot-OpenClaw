@@ -222,4 +222,45 @@ Das System ist nun gesichert, wieder online und bereit für die Installation der
 
 ----
 
-...
+#### 5. Installation der OpenClaw Software
+
+Wir verwenden das offizielle Installationsskript, um die notwendige Laufzeitumgebung (Node.js 22) und die OpenClaw-Binärdateien sauber zu installieren.
+
+Start der Installation über die Konsole:
+
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
+Der Installer führt folgende Schritte automatisch aus:
+1. Prüfung der Systemvoraussetzungen.
+2. Installation von Node.js 22 (LTS), falls noch nicht vorhanden.
+3. Installation von Git.
+4. Download und Einrichtung der OpenClaw CLI und des Gateway Services.
+Nach dem Download startet das Skript automatisch den Einrichtungs-Assistenten ("Onboarding Wizard").
+Ausgabe und Interaktion im Terminal:
+
+
+Processing triggers for libc-bin ... <br>
+✓ Git installed <br>
+→ Installing OpenClaw 2026.2.6-3... <br>
+✓ OpenClaw installed <br>
+🦞 OpenClaw installed successfully (2026.2.6-3)! <br>
+
+Finally unpacked. Now point me at your problems.
+Starting setup...
+
+| Security warning — please read. |
+
+* I understand this is powerful and inherently risky. Continue?
+
+| Yes / > No
+
+Wichtige Handlungsanweisung für das "ZeroLab"-Setup: Da wir eine maßgeschneiderte, sichere Konfiguration (mit ausgelagerten Secrets und Hybrid-Modell) verwenden wollen, nutzen wir den automatischen Wizard nicht bis zum Ende.
+
+1. Wähle bei der Sicherheitswarnung Yes und bestätige mit Enter.
+
+2. Sobald der Wizard nach dem Modus fragt (oder "Onboarding mode"), brich den Vorgang sofort mit der Tastenkombination STRG + C ab.
+Ergebnis: Die Software und alle Abhängigkeiten sind installiert, aber es wurden noch keine Standard-Konfigurationsdateien angelegt. Dies gibt uns die Freiheit, unsere eigene Struktur im nächsten Schritt sauber aufzubauen.
+
+----
