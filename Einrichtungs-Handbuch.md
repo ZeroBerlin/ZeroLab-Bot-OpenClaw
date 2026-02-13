@@ -222,7 +222,7 @@ Das System ist nun gesichert, wieder online und bereit für die Installation der
 
 ----
 
-#### 5. Installation der OpenClaw Software
+#### 6. Installation der OpenClaw Software
 
 Wir verwenden das offizielle Installationsskript, um die notwendige Laufzeitumgebung (Node.js 22) und die OpenClaw-Binärdateien sauber zu installieren.
 
@@ -313,7 +313,8 @@ INFO Starting setup
 ```
 
 ----
-##### 6 Konfiguration und erste Einstellungen OpenClaw
+
+#### 7 Konfiguration und erste Einstellungen OpenClaw
 
 ```bash
 🦞 OpenClaw installed successfully (2026.2.12)!
@@ -329,8 +330,13 @@ INFO Starting setup
 ██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██
 ██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-                  🦞 OPENCLAW 🦞                    
- 
+                  🦞 OPENCLAW 🦞 
+
+```
+
+#### 7.1 Der Onbording Prozess von OpenClaw
+
+```bash
 T  OpenClaw onboarding
 |
 o  Security ------------------------------------------------------------------------------+
