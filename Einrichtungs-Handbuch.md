@@ -294,5 +294,21 @@ INFO Installing Node.js via NodeSource
 INFO Installing Linux build tools (make/g++/cmake/python3)
 ⣯  Installing build tools  
 ```
+```bash
+[2/3] Installing OpenClaw
+                         
+INFO Git not found, installing it now
+✓ Git installed
+INFO Installing OpenClaw v2026.2.12
+✓ OpenClaw npm package installed
+✓ OpenClaw installed
+                      
+[3/3] Finalizing setup
+                      
 
-...
+🦞 OpenClaw installed successfully (2026.2.12)!
+I'm in. Let's cause some responsible chaos.
+
+INFO Starting setup
+```
+----
