@@ -311,4 +311,55 @@ I'm in. Let's cause some responsible chaos.
 
 INFO Starting setup
 ```
+
 ----
+##### 6 Konfiguration und erste Einstellungen OpenClaw
+
+```bash
+🦞 OpenClaw installed successfully (2026.2.12)!
+I'm in. Let's cause some responsible chaos.
+
+INFO Starting setup
+
+
+🦞 OpenClaw 2026.2.12 (f9e444d) — Your task has been queued; your dignity has been deprecated.
+
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+██░▄▄▄░██░▄▄░██░▄▄▄██░▀██░██░▄▄▀██░████░▄▄▀██░███░██
+██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██
+██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+                  🦞 OPENCLAW 🦞                    
+ 
+T  OpenClaw onboarding
+|
+o  Security ------------------------------------------------------------------------------+
+|                                                                                         |
+|  Security warning — please read.                                                        |
+|                                                                                         |
+|  OpenClaw is a hobby project and still in beta. Expect sharp edges.                     |
+|  This bot can read files and run actions if tools are enabled.                          |
+|  A bad prompt can trick it into doing unsafe things.                                    |
+|                                                                                         |
+|  If you’re not comfortable with basic security and access control, don’t run OpenClaw.  |
+|  Ask someone experienced to help before enabling tools or exposing it to the internet.  |
+|                                                                                         |
+|  Recommended baseline:                                                                  |
+|  - Pairing/allowlists + mention gating.                                                 |
+|  - Sandbox + least-privilege tools.                                                     |
+|  - Keep secrets out of the agent’s reachable filesystem.                                |
+|  - Use the strongest available model for any bot with tools or untrusted inboxes.       |
+|                                                                                         |
+|  Run regularly:                                                                         |
+|  openclaw security audit --deep                                                         |
+|  openclaw security audit --fix                                                          |
+|                                                                                         |
+|  Must read: https://docs.openclaw.ai/gateway/security                                   |
+|                                                                                         |
++-----------------------------------------------------------------------------------------+
+|
+*  I understand this is powerful and inherently risky. Continue?
+|    Yes / > No
+—
+```
+...
