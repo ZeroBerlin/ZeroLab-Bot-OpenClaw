@@ -74,4 +74,152 @@ Wir erstellen einen ressourcenschonenden Container ("Unprivileged LXC"), der als
 
 ----
 
+#### 3. Basis-Konfiguration des LXC Containers
+
+Nachdem der Container gestartet ist, loggen wir uns über die Konsole (Proxmox GUI oder SSH) als `root` ein. Die folgenden Schritte bringen das System auf den aktuellen Stand und installieren notwendige Werkzeuge.
+
+##### 3.1 System-Update & Upgrade
+Zuerst aktualisieren wir die Paketquellen und installieren alle verfügbaren Updates für Ubuntu 24.04.
+
+**Befehl:**
+```bash
+apt update && apt upgrade -y
+```
+
+Ausgabe (Auszug):
+
+```bash
+Processing triggers for install-info (7.1-3build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+Processing triggers for ufw (0.36.2-6) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+root@pve-openclaw:~#
+```
+
+#### 3.2 Installation von System-Tools (htop)
+Wir installieren htop zur besseren Überwachung der Systemressourcen (CPU/RAM).
+
+**Befehl:**
+```bash
+apt install -y htop
+```
+
+Ausgabe (Auszug):
+
+```bash
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+root@pve-openclaw:~#
+```
+
+#### 3.3 Installation von Curl
+curl wird zwingend benötigt, um das OpenClaw-Installationsskript und andere Inhalte aus dem Web zu laden.
+
+**Befehl:**
+```bash
+apt install -y curl
+```
+
+Ausgabe (Auszug):
+
+```bash
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+root@pve-openclaw:~#
+```
+
+#### 4 Einrichtung des externen Zugriffs (WinSCP / SSH)
+Um Dateien (wie Konfigurationen oder Logs) bequem von einem Windows-PC mit WinSCP bearbeiten zu können, muss der direkte Root-Login via SSH aktiviert werden. Standardmäßig ist dieser bei Ubuntu aus Sicherheitsgründen oft deaktiviert oder auf "nur Key-Files" beschränkt.
+
+#### 4.1 SSH-Konfiguration anpassen
+Wir bearbeiten die Datei /etc/ssh/sshd_config.
+
+**Befehl:**
+```bash
+nano /etc/ssh/sshd_config
+```
+
+Wir suchen den Abschnitt # Authentication. Änderung: Die Zeile #PermitRootLogin prohibit-password wird geändert zu PermitRootLogin yes.
+Konfiguration vorher:
+
+# Authentication:
+```bash
+#LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+```
+
+Konfiguration nachher:
+# Authentication:
+```bash
+#LoginGraceTime 2m
+PermitRootLogin yes
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+```
+
+Speichern mit STRG+O, Beenden mit STRG+X.
+
+#### 4.2 Dienst neustarten & Passwort setzen
+Damit der Login funktioniert, muss der SSH-Dienst die neue Config laden und der Benutzer root benötigt ein explizites Passwort (da LXC-Container oft initial keines haben).
+
+**Befehle:**
+```bash
+systemctl restart ssh
+passwd
+```
+
+Ausgabe:
+```bash
+root@pve-openclaw:~# systemctl restart ssh
+root@pve-openclaw:~# passwd
+New password: 
+Retype new password: 
+passwd: password updated successfully
+root@pve-openclaw:~#
+```
+
+Test: Der Zugriff via WinSCP auf die IP 192.168.178.239 mit User root funktioniert nun erfolgreich.
+
+#### 5. Meilenstein: Backup des Basis-Systems
+Bevor die eigentliche OpenClaw-Software installiert wird, wurde ein vollständiges Backup des sauberen, vorbereiteten Containers erstellt. Dies ermöglicht jederzeit einen schnellen Rollback auf ein frisches System ohne Neuinstallation des OS.
+Durchführung in Proxmox:
+
+1. Container 999 (pve-openclaw) auswählen.
+2. Menü Backup -> Backup now.
+3. Mode: Stop (für Konsistenz).
+4. Storage: a11-hdd.
+5. Notes: {{guestname}} LXC-komplett.
+
+Protokoll des Backup-Vorgangs:
+```bash
+INFO: starting new backup job: vzdump 999 --notification-mode auto --notes-template '{{guestname}} LXC-komplett' --compress zstd --mode stop --remove 0 --storage a11-hdd --node pve
+INFO: Starting Backup of VM 999 (lxc)
+INFO: Backup started at 2026-02-13 15:33:59
+INFO: status = running
+INFO: backup mode: stop
+INFO: ionice priority: 7
+INFO: CT Name: pve-openclaw
+INFO: including mount point rootfs ('/') in backup
+INFO: stopping virtual guest
+INFO: creating vzdump archive '/mnt/pve/a11-hdd/dump/vzdump-lxc-999-2026_02_13-15_33_59.tar.zst'
+INFO: Total bytes written: 878131200 (838MiB, 82MiB/s)
+INFO: archive file size: 245MB
+INFO: adding notes to backup
+INFO: restarting vm
+INFO: guest is online again after 17 seconds
+INFO: Finished Backup of VM 999 (00:00:17)
+INFO: Backup finished at 2026-02-13 15:34:16
+INFO: Backup job finished successfully
+INFO: notified via target `mail-to-root`
+TASK OK
+```
+
+Das System ist nun gesichert, wieder online und bereit für die Installation der Applikation.
+
+----
+
 ...
