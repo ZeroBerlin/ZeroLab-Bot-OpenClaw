@@ -263,6 +263,8 @@ Wichtige Handlungsanweisung für das "ZeroLab"-Setup: Da wir eine maßgeschneide
 2. Sobald der Wizard nach dem Modus fragt (oder "Onboarding mode"), brich den Vorgang sofort mit der Tastenkombination STRG + C ab.
 Ergebnis: Die Software und alle Abhängigkeiten sind installiert, aber es wurden noch keine Standard-Konfigurationsdateien angelegt. Dies gibt uns die Freiheit, unsere eigene Struktur im nächsten Schritt sauber aufzubauen.
 
+
+**Ansicht im Terminal**
 ```bash
 root@pve-openclaw:~# curl -fsSL https://openclaw.ai/install.sh | bash
 ```
@@ -270,7 +272,7 @@ Ausgabe:
 ```bash
 ╭───────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                       │
-│  🦞 OpenClaw Installer                                                               │
+│  🦞 OpenClaw Installer                                                                │
 │  I'm not saying your workflow is chaotic... I'm just bringing a linter and a helmet.  │
 │  modern installer mode                                                                │
 │                                                                                       │
