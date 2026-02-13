@@ -2,8 +2,9 @@
 
 ### Version: 1.0 (ZeroLab Edition 2026) Fokus: Schritt-für-Schritt Installation & Konfiguration
 ----
+<br>
 
-#### 1. Einleitung und Zielsetzung
+### 1. Einleitung und Zielsetzung
 
 Dieses Dokument dient als technisches Handbuch zum vollständigen Neuaufbau des ZeroLab Agenten. Im Gegensatz zur allgemeinen Projektübersicht (README.md) liegt der Fokus hier auf der Reproduzierbarkeit. Es ermöglicht Administratoren und technisch versierten Anwendern, das System Zeile für Zeile nachzubauen – von der leeren Linux-Konsole bis zum ersten "System Check" auf WhatsApp.
 Das Ziel ist ein autonomer, privater KI-Assistent, der lokal gehostet wird, aber bei Bedarf auf Cloud-Ressourcen zurückgreifen kann (Hybrid-Architektur).
@@ -42,8 +43,9 @@ Dieses Handbuch folgt dem Zero-Trust-Ansatz, um private Daten zu schützen:
 3. Isolation: Gruppen-Chats und unsichere Tools laufen in isolierten Umgebungen (Sandboxing/Non-Main Session).
 
 ----
+<br>
 
-#### 2. Erstellung des LXC Containers (Proxmox)
+### 2. Erstellung des LXC Containers (Proxmox)
 
 Wir erstellen einen ressourcenschonenden Container ("Unprivileged LXC"), der als Heimat für das OpenClaw-Gateway dient. Da die KI-Berechnung extern erfolgt, sind die Hardware-Anforderungen moderat.
 
@@ -73,8 +75,9 @@ Wir erstellen einen ressourcenschonenden Container ("Unprivileged LXC"), der als
 3. Klicke auf **Finish**. Der Container wird erstellt und startet automatisch.
 
 ----
+<br>
 
-#### 3. Basis-Konfiguration des LXC Containers
+### 3. Basis-Konfiguration des LXC Containers
 
 Nachdem der Container gestartet ist, loggen wir uns über die Konsole (Proxmox GUI oder SSH) als `root` ein. Die folgenden Schritte bringen das System auf den aktuellen Stand und installieren notwendige Werkzeuge.
 
@@ -127,8 +130,10 @@ Processing triggers for man-db (2.12.0-4build2) ...
 Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
 root@pve-openclaw:~#
 ```
+----
+<br>
 
-#### 4 Einrichtung des externen Zugriffs (WinSCP / SSH)
+### 4 Einrichtung des externen Zugriffs (WinSCP / SSH)
 Um Dateien (wie Konfigurationen oder Logs) bequem von einem Windows-PC mit WinSCP bearbeiten zu können, muss der direkte Root-Login via SSH aktiviert werden. Standardmäßig ist dieser bei Ubuntu aus Sicherheitsgründen oft deaktiviert oder auf "nur Key-Files" beschränkt.
 
 #### 4.1 SSH-Konfiguration anpassen
@@ -183,8 +188,11 @@ root@pve-openclaw:~#
 ```
 
 Test: Der Zugriff via WinSCP auf die IP 192.168.178.239 mit User root funktioniert nun erfolgreich.
+----
+<br>
 
-#### 5. Meilenstein: Backup des Basis-Systems
+
+### 5. Meilenstein: Backup des Basis-Systems
 Bevor die eigentliche OpenClaw-Software installiert wird, wurde ein vollständiges Backup des sauberen, vorbereiteten Containers erstellt. Dies ermöglicht jederzeit einen schnellen Rollback auf ein frisches System ohne Neuinstallation des OS.
 Durchführung in Proxmox:
 
@@ -221,8 +229,9 @@ TASK OK
 Das System ist nun gesichert, wieder online und bereit für die Installation der Applikation.
 
 ----
+<br>
 
-#### 6. Installation der OpenClaw Software
+### 6. Installation der OpenClaw Software
 
 Wir verwenden das offizielle Installationsskript, um die notwendige Laufzeitumgebung (Node.js 22) und die OpenClaw-Binärdateien sauber zu installieren.
 
@@ -313,8 +322,9 @@ INFO Starting setup
 ```
 
 ----
+<br>
 
-#### 7 Konfiguration und erste Einstellungen OpenClaw
+### 7 Konfiguration und erste Einstellungen OpenClaw
 
 ```bash
 🦞 OpenClaw installed successfully (2026.2.12)!
@@ -706,3 +716,604 @@ o  Hooks ----------------------------------------------------------+
 |  [ ] 💾 session-memory
 —
 ```
+Wir / Ich werde hier alles auswählen. **Warum?**
+
+<br>
+<br>
+
+```bash
+[ ] 🚀 boot-md
+```
+Der boot-md Hook ist ein Autostart-Mechanismus.
+
+* **Funktion:** Er feuert jedes Mal, wenn der OpenClaw-Dienst (Gateway) startet (z. B. nach einem Server-Reboot oder systemctl restart)
+
+* **Ziel:** Er sucht nach einer Datei namens BOOT.md in deinem Workspace und führt deren Anweisungen aus
+
+* **Zweck:** Das wird genutzt, um dem Bot zu sagen: "Wenn du aufwachst, prüfe sofort E-Mails" oder "Schreibe mir auf WhatsApp: System neu gestartet, bin online."
+
+<br>
+**Hinweis:** Unterschied zu BOOTSTRAP.md
+
+* BOOTSTRAP.md (Das Schlüpfen): Passiert nur ein einziges Mal ganz am Anfang, wenn der Workspace neu ist. Es dient dazu, die Identität (IDENTITY.md) zu erstellen. Das wollen wir gleich nutzen. Das passiert jetzt wenn OpenClaw nach dem Onboarding Prozess zum aller ersten Mal gestartet wird. Dann nie wieder.
+
+* BOOT.md (Das Aufwachen): Passiert jedes Mal.
+
+<br>
+<br>
+
+```bash
+[ ] 📝 command-logger
+```
+**Der Flugschreiber** <br>
+Er protokolliert jeden administrativen Befehl (/new, /reset, /stop, /status, etc.), der an den Bot gesendet wird. Er dient dem Debugging und Auditing. Wenn der Bot plötzlich sein Verhalten ändert, kannst du hier prüfen: "Habe ich versehentlich /reset getippt?" oder "Hat jemand anderes einen Befehl ausgeführt?".
+<br>
+
+**Wer beschreibt ihn?** <br>
+Der Hook selbst (ein internes Skript von OpenClaw) schreibt die Daten. Er läuft "silent" (geräuschlos) im Hintergrund, ohne dass du im Chat eine Bestätigung erhältst.
+<br>
+
+**Wo steht das?** <br>
+Die Daten landen in einer simplen Textdatei auf deinem Server: ~/.openclaw/logs/commands.log
+<br>
+
+**Was steht drin?** <br>
+Er schreibt im JSONL-Format (JSON Lines), was ideal für Maschinen lesbar ist. Jeder Eintrag enthält: <br>
+* ts: Zeitstempel (Wann?)
+* action: Der Befehl (z.B. "new")
+* session: Die Session-ID (In welchem Chat?)
+* sender: Die ID des Absenders (z.B. deine Telefonnummer +49...)
+* source: Der Kanal (z.B. "whatsapp")
+* Beispiel: {"ts":"2026-02-09T16:00:00Z","action":"new","session":"agent:main...","sender":"+49162...","source":"whatsapp"}
+<br>
+
+**Wissenswertes für ZeroLab:** <br>
+ Der Hook besitzt **keine automatische Log-Rotation.** <br>
+  Das bedeutet, die Datei wächst unendlich. Für ein privates Setup ist das unkritisch, aber als Admin solltest du wissen: Wenn die Datei in 2 Jahren 500 MB groß ist, musst du sie manuell löschen oder rotieren (logrotate).
+  <br>
+
+<br>
+
+```bash
+[ ] 💾 session-memory
+```
+**Das episodische Gedächtnis** <br>
+
+
+> ## Der Banger ... <br>
+> **Dieser Hook löst eines der größten Probleme von LLM-Agenten: den Gedächtnisverlust beim Reset oder nach einem Neustart.**
+
+...
+
+
+
+
+* **Wozu wird er benutzt?** <br>
+ Normalerweise, wenn du den Befehl /new eingibst, wird der aktuelle Kontext ("Context Window") gelöscht, um Platz zu sparen oder Fehler zu beheben. Der Bot vergisst alles, worüber ihr gerade geredet habt. Der session-memory Hook greift genau in diesem Moment ein: Bevor alles gelöscht wird, speichert er eine Zusammenfassung der letzten Unterhaltung ab.
+ <br>
+
+* **Wer beschreibt ihn?** <br>
+Der Hook steuert den Prozess, nutzt aber dein konfiguriertes LLM (z.B. Gemini oder Llama), um einen intelligenten Dateinamen ("Slug") zu generieren, der den Inhalt beschreibt.
+<br>
+
+* **Wo steht das?** <br>
+Er erstellt neue Markdown-Dateien in deinem Workspace: ~/.openclaw/workspace/memory/YYYY-MM-DD-slug.md.
+<br>
+
+* **Was steht drin?** <br>
+Er extrahiert die letzten N Nachrichten (Standard: 15, konfigurierbar) der alten Session, bevor sie gelöscht wird. Beispiel-Dateinamen: 2026-02-13-nginx-config-fix.md oder 2026-02-13-backup-strategy.md.
+<br>
+
+**Wissenswertes für ZeroLab:** <br>
+Dies ist nicht die MEMORY.md. Die MEMORY.md ist für ewige Fakten ("Ich bin ZeroLab"). session-memory erzeugt Tagebucheinträge vergangener Diskussionen.
+* Vorteil: Wenn du später fragst "Wie haben wir letzte Woche den Server gefixt?", kann die Vektor-Suche diese alten Dateien finden, auch wenn der Chat längst gelöscht ist.
+* Der Hook funktioniert automatisch nur beim /new Befehl.
+<br>
+<br>
+
+Da wir uns entschieden haben, das System voll auszureizen (Schlüpfen und Aufwachen), aktiviere alle wir alle drei Optionen mit der Leertaste, sodass überall ein [x] steht: <br>
+
+• [x] 🚀 boot-md (Für die Begrüßung nach dem Hochfahren) ybr>
+
+• [x] 📝 command-logger (Für dein Admin-Logbuch) <br>
+
+• [x] 💾 session-memory (Für das automatische Tagebuch) <br>
+
+**Hinweis:** Dass die Datei BOOT.md für den ersten Punkt noch nicht existiert, ist kein Problem. Der Hook prüft einfach, ob sie da ist – wenn nicht, tut er nichts (kein Absturz). Wir erstellen sie im Anschluss einfach manuell.
+<br>
+
+```bash
+*  Enable hooks?
+|  [ ] Skip for now
+|  [+] 🚀 boot-md (Run BOOT.md on gateway startup)
+|  [+] 📝 command-logger (Log all command events to a centralized audit file)
+|  [+] 💾 session-memory (Save session context to memory when /new command is issued)
+—
+```
+und wie schon davor und davor ... bestättige mit **(Enter)**
+<br>
+<br>
+
+## Wir sind am Ziel ;-)
+
+<br>
+
+```bash
+o  Enable hooks?
+|  🚀 boot-md, 📝 command-logger, 💾 session-memory
+|
+o  Hooks Configured -----------------------------------------+
+|                                                            |
+|  Enabled 3 hooks: boot-md, command-logger, session-memory  |
+|                                                            |
+|  You can manage hooks later with:                          |
+|    openclaw hooks list                                     |
+|    openclaw hooks enable <name>                            |
+|    openclaw hooks disable <name>                           |
+|                                                            |
++------------------------------------------------------------+
+|
+o  Systemd -------------------------------------------------------------------------------+
+|                                                                                         |
+|  Systemd user services are unavailable. Skipping lingering checks and service install.  |
+|                                                                                         |
++-----------------------------------------------------------------------------------------+
+|
+o  
+Health check failed: gateway closed (1006 abnormal closure (no close frame)): no close reason
+  Gateway target: ws://127.0.0.1:18789
+  Source: local loopback
+  Config: /root/.openclaw/openclaw.json
+  Bind: loopback
+|
+o  Health check help --------------------------------+
+|                                                    |
+|  Docs:                                             |
+|  https://docs.openclaw.ai/gateway/health           |
+|  https://docs.openclaw.ai/gateway/troubleshooting  |
+|                                                    |
++----------------------------------------------------+
+|
+o  Optional apps ------------------------+
+|                                        |
+|  Add nodes for extra features:         |
+|  - macOS app (system + notifications)  |
+|  - iOS app (camera/canvas)             |
+|  - Android app (camera/canvas)         |
+|                                        |
++----------------------------------------+
+|
+o  Control UI -------------------------------------------------------------------------------+
+|                                                                                            |
+|  Web UI: http://127.0.0.1:18789/                                                           |
+|  Web UI (with token):                                                                      |
+|  http://127.0.0.1:18789/#token=[GATEWAY-TOKEN-KEY]            |
+|  Gateway WS: ws://127.0.0.1:18789                                                          |
+|  Gateway: not detected (gateway closed (1006 abnormal closure (no close frame)): no close  |
+|  reason)                                                                                   |
+|  Docs: https://docs.openclaw.ai/web/control-ui                                             |
+|                                                                                            |
++--------------------------------------------------------------------------------------------+
+|
+o  Workspace backup ----------------------------------------+
+|                                                           |
+|  Back up your agent workspace.                            |
+|  Docs: https://docs.openclaw.ai/concepts/agent-workspace  |
+|                                                           |
++-----------------------------------------------------------+
+|
+o  Security ------------------------------------------------------+
+|                                                                 |
+|  Running agents on your computer is risky — harden your setup:  |
+|  https://docs.openclaw.ai/security                              |
+|                                                                 |
++-----------------------------------------------------------------+
+|
+o  Shell completion --------------------------------------------------------+
+|                                                                           |
+|  Shell completion installed. Restart your shell or run: source ~/.bashrc  |
+|                                                                           |
++---------------------------------------------------------------------------+
+|
+o  Dashboard ready ----------------------------------------------------------------+
+|                                                                                  |
+|  Dashboard link (with token):                                                    |
+|  http://127.0.0.1:18789/#token=[GATEWAY-TOKEN-KEY]  |
+|  Copy/paste this URL in a browser on this machine to control OpenClaw.           |
+|  No GUI detected. Open from your computer:                                       |
+|  ssh -N -L 18789:127.0.0.1:18789 root@<host>                                     |
+|  Then open:                                                                      |
+|  http://localhost:18789/                                                         |
+|  http://localhost:18789/#token=[GATEWAY-TOKEN-KEY]  |
+|  Docs:                                                                           |
+|  https://docs.openclaw.ai/gateway/remote                                         |
+|  https://docs.openclaw.ai/web/control-ui                                         |
+|                                                                                  |
++----------------------------------------------------------------------------------+
+|
+o  Web search (optional) -----------------------------------------------------------------+
+|                                                                                         |
+|  If you want your agent to be able to search the web, you’ll need an API key.           |
+|                                                                                         |
+|  OpenClaw uses Brave Search for the `web_search` tool. Without a Brave Search API key,  |
+|  web search won’t work.                                                                 |
+|                                                                                         |
+|  Set it up interactively:                                                               |
+|  - Run: openclaw configure --section web                                                |
+|  - Enable web_search and paste your Brave Search API key                                |
+|                                                                                         |
+|  Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).         |
+|  Docs: https://docs.openclaw.ai/tools/web                                               |
+|                                                                                         |
++-----------------------------------------------------------------------------------------+
+|
+o  What now -------------------------------------------------------------+
+|                                                                        |
+|  What now: https://openclaw.ai/showcase ("What People Are Building").  |
+|                                                                        |
++------------------------------------------------------------------------+
+|
+—  Onboarding complete. Use the dashboard link above to control OpenClaw.
+```
+
+----
+### 8 BackUp - Meilen-Stein Sicherung
+
+Das ist der perfekte Zeitpunkt für ein Backup! 🎉
+Dieser **"Golden-State"** ist enorm wertvoll. Du hast jetzt ein funktionierendes System:
+1. OS & Tools: Sauber installiert und gehärtet.
+
+2. OpenClaw: Erfolgreich installiert und Abhängigkeiten (Node.js) gelöst.
+
+3. Identität: Der Bots steht kurz bevor (Hatching). ER bekommt seinen Namen nach dem Golden-State BackUp.
+Meine Namenswahl wird : "ZeroLab" sein.
+
+4. Verbindung: WhatsApp ist gekoppelt.
+
+#### 8.1 Das Golden.State BackUp
+Wenn wir jetzt beim Umbau auf ein anders Modell (LM Studio) oder beim Tuning etwas "kaputtkonfigurieren", kannst du immer exakt hierhin zurückkehren, ohne QR-Codes scannen oder Pakete installieren zu müssen.
+<br>
+
+1. Zum Backup des LXC-Containers unter PRoxmox:
+2. Container 999 (pve-openclaw) auswählen.
+3. Menü Backup -> Backup now.
+4. Mode: Stop (für Konsistenz).
+5. Storage: a11-hdd.
+6. Notes: {{guestname}} Golden-State-OpenClaw
+
+
+Protokoll des Backup-Vorgangs:
+```bash
+INFO: starting new backup job: vzdump 999 --notification-mode auto --notes-template '{{guestname}} Golden-State-OpenClaw' --compress zstd --mode stop --remove 0 --storage a11-hdd --node pve
+INFO: Starting Backup of VM 999 (lxc)
+INFO: Backup started at 2026-02-13 18:53:23
+INFO: status = running
+INFO: backup mode: stop
+INFO: ionice priority: 7
+INFO: CT Name: pve-openclaw
+INFO: including mount point rootfs ('/') in backup
+INFO: stopping virtual guest
+INFO: creating vzdump archive '/mnt/pve/a11-hdd/dump/vzdump-lxc-999-2026_02_13-18_53_23.tar.zst'
+INFO: Total bytes written: 3541831680 (3.3GiB, 20MiB/s)
+INFO: archive file size: 1.38GB
+INFO: adding notes to backup
+INFO: restarting vm
+INFO: guest is online again after 178 seconds
+INFO: Finished Backup of VM 999 (00:02:58)
+INFO: Backup finished at 2026-02-13 18:56:21
+INFO: Backup job finished successfully
+INFO: notified via target `mail-to-root`
+TASK OK
+```
+
+----
+
+### 9 Letzter Schliff am LXC - Container
+
+#### 9.1 Noch haben wir keinen Autostart als Systemdienst im LXC
+Nach dem Golden-State BackUp sollte der LXC Container neu gestartet sein. Wir erwarten das Openclaw nihct selbständig gestartet ist. Da der Installations-Wizard vorhin den Fehler Systemd user services are unavailable gemeldet hat.
+<br>
+
+In einem LXC-Container (als Root) funktionieren die Standard-"Benutzer-Dienste" oft nicht. Wir haben das System zwar gesichert, aber den Autostart-Dienst (Daemon) noch nicht manuell repariert.
+
+**Wir prüfen das** <br>
+Gebe in der Konsole des LXC folgenden Befehl ein.
+
+```bash
+systemctl status openclaw
+```
+Jetzt sollte folgende Ausgabe zu sehen sein:
+```bash
+root@pve-openclaw:~# systemctl status openclaw
+Unit openclaw.service could not be found.
+root@pve-openclaw:~# 
+```
+Der Autostart ist noch nicht richtig eingerichtet.
+Der automatische Installer konnte den Dienst nicht anlegen, weil in LXC-Containern (als root) die Standard-"Benutzer-Dienste" nicht funktionieren. Das System weiß also noch gar nicht, dass es einen "OpenClaw"-Dienst geben soll.
+<br>
+Wir müssen die Service-Datei jetzt manuell erstellen. Das ist ohnehin besser, da wir so volle Kontrolle über den Autostart haben.
+<br>
+<br>
+
+Wir erstellen eine Konfigurationsdatei für systemd, die Linux sagt, wie OpenClaw zu starten ist.
+<br>
+<br>
+Öffne den internen Linux Editor "Nano" mit folgendem Befehl:
+
+```bash
+nano /etc/systemd/system/openclaw.service
+```
+Kopiere den folgenden Block exakt so in den Editor. Er ist auf deine Pfade (/root/.openclaw) und den Root-User angepasst.
+<br>
+```bash
+[Unit]
+Description=OpenClaw Gateway Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw
+ExecStart=/usr/bin/openclaw gateway
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+Jetzt kann die Datei mit STRG + O geschrieben werden und der Editor kann anschließend mit STRG + X wieder geschlossen werden.
+<br>
+<br>
+Jetzt müssen wir Linux sagen, dass es die neue Datei einlesen und den Dienst beim Booten starten soll. Der Dienst muss aktiviert und gestartet werden.
+<br>
+<br>
+Das machen wir mit den folgenden Befehlen:
+```bash
+systemctl daemon-reload
+```
+```bash
+systemctl enable openclaw
+```
+Rückmeldung, der Dienst wurde erstellt.
+```bash
+root@pve-openclaw:~# systemctl enable openclaw
+Created symlink /etc/systemd/system/multi-user.target.wants/openclaw.service -> /etc/systemd/system/openclaw.service.
+```
+
+Letzter Befehl:
+```bash
+systemctl start openclaw
+```
+<br>
+Wenn es bei der Befehlseingabe keinen Fehler als Rückmeldung gegeben hat, sollten wir jetzt einen Status bei der Abfrage erhalten.
+<br>
+<br>
+Probiren wir es aus ..., geb foldenden Befehl nochmal ein:
+<br>
+
+```bash
+systemctl status openclaw
+```
+<br>
+
+Die Ausgabe sollte jetzt genau so aussehen:
+
+```bash
+root@pve-openclaw:~# systemctl status openclaw
+* openclaw.service - OpenClaw Gateway Service
+     Loaded: loaded (/etc/systemd/system/openclaw.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-02-13 18:43:09 UTC; 13s ago
+   Main PID: 599 (openclaw)
+      Tasks: 14 (limit: 18846)
+     Memory: 402.3M (peak: 402.5M)
+        CPU: 8.058s
+     CGroup: /system.slice/openclaw.service
+             |-599 openclaw
+             `-607 openclaw
+
+Feb 13 18:43:09 pve-openclaw systemd[1]: Started openclaw.service - OpenClaw Gateway Service.
+root@pve-openclaw:~# 
+```
+<br>
+
+**Das sieht hervorragend aus!** 🟢 <br>
+
+Der Status Active: active (running) bestätigt, dass deine manuelle Service-Installation erfolgreich war. Der Dienst läuft jetzt als **System-Service (root)**, startet automatisch beim Booten und ist stabil.
+<br>
+
+Der "Golden-State" ist damit technisch perfekt abgeschlossen.
+<br>
+
+Du musst das nicht machen, aber ich machen nochmal ein Meilen-Stein BackUp, das tut nicht weh. Aber wir haben jetzt einen funktionierenden Zustand vor dem Hatching / der Geburt wo Openclaw nach seinem Namen und seine Identität fragen sollte. Ich nutze diesen Zustand gerne als Wipe BackUp, falls ich mal neu anfangen will, oder muss.
+
+----
+also führe das LXC - Container wie im Punkt **8.1 Das Golden.State BackUp** erneut aus. <br>
+<br>
+Ich vergebe den Namen: **Hatching-Moment (gewipet)** <br>
+
+----
+
+**Ein letzter Check ob alles richtig konfiguriert ist.**
+<br>
+Der Status-Check (Pre-Flight) 🛠️ <br>
+Prüfen der Gemini-Anbindung (Das Gehirn).
+<br>
+
+1. CheckUp
+
+```bash
+openclaw models status
+```
+
+Ausgabe:
+
+```bash
+root@pve-openclaw:~# openclaw models status
+
+🦞 OpenClaw 2026.2.12 (f9e444d) — If you can describe it, I can probably automate it—or at least make it funnier.
+
+Config        : ~/.openclaw/openclaw.json
+Agent dir     : ~/.openclaw/agents/main/agent
+Default       : google/gemini-2.5-flash
+Fallbacks (0) : -
+Image model   : -
+Image fallbacks (0): -
+Aliases (0)   : -
+Configured models (1): google/gemini-2.5-flash
+
+Auth overview
+Auth store    : ~/.openclaw/agents/main/agent/auth-profiles.json
+Shell env     : off
+Providers w/ OAuth/tokens (0): -
+- google effective=profiles:~/.openclaw/agents/main/agent/auth-profiles.json | profiles=1 (oauth=0, token=0, api_key=1) | google:default=[GOOGLE-API-KEY]
+
+OAuth/token status
+- none
+root@pve-openclaw:~# 
+```
+<br>
+
+2. Checkup
+
+```bash
+openclaw status --deep
+```
+Ausgabe:
+
+```bash
+root@pve-openclaw:~# openclaw status --deep
+
+🦞 OpenClaw 2026.2.12 (f9e444d) — I read logs so you can keep pretending you don't have to.
+
+|
+gateway connect failed: Error: unauthorized: gateway token mismatch (set gateway.remote.token to match gateway.auth.token)
+  
+OpenClaw status
+
+Overview
+┌─────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item            │ Value                                                                                                                                                       │
+├─────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Dashboard       │ http://127.0.0.1:18789/                                                                                                                                     │
+│ OS              │ linux 6.8.12-15-pve (x64) · node 22.22.0                                                                                                                    │
+│ Tailscale       │ off                                                                                                                                                         │
+│ Channel         │ stable (default)                                                                                                                                            │
+│ Update          │ pnpm · npm latest 2026.2.12                                                                                                                                 │
+│ Gateway         │ local · ws://127.0.0.1:18789 (local loopback) · reachable 128ms · auth token · pve-openclaw (192.168.178.239) app unknown linux 6.8.12-15-pve               │
+│ Gateway service │ systemd not installed                                                                                                                                       │
+│ Node service    │ systemd not installed                                                                                                                                       │
+│ Agents          │ 1 · 1 bootstrapping · sessions 0 · default main active unknown                                                                                              │
+│ Memory          │ 0 files · 0 chunks · dirty · sources memory · plugin memory-core · vector ready · fts ready · cache on (0)                                                  │
+│ Probes          │ enabled                                                                                                                                                     │
+│ Events          │ none                                                                                                                                                        │
+│ Heartbeat       │ 30m (main)                                                                                                                                                  │
+│ Last heartbeat  │ none                                                                                                                                                        │
+│ Sessions        │ 0 active · default gemini-2.5-flash (1049k ctx) · ~/.openclaw/agents/main/sessions/sessions.json                                                            │
+└─────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Security audit
+Summary: 0 critical · 2 warn · 1 info
+  WARN Reverse proxy headers are not trusted
+    gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client c…
+    Fix: Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only.
+  WARN Credentials dir is readable by others
+    /root/.openclaw/credentials mode=755; credentials and allowlists can be sensitive.
+    Fix: chmod 700 /root/.openclaw/credentials
+Full report: openclaw security audit
+Deep probe: openclaw security audit --deep
+
+Channels
+┌──────────┬─────────┬────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Channel  │ Enabled │ State  │ Detail                                                                                                                                          │
+├──────────┼─────────┼────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WhatsApp │ ON      │ OK     │ linked · +49555Schuh · auth 5m ago · accounts 1                                                                                               │
+└──────────┴─────────┴────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Sessions
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬──────┬─────────┬──────────────┬────────────────┐
+│ Key                                                                                                                          │ Kind │ Age     │ Model        │ Tokens         │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼──────┼─────────┼──────────────┼────────────────┤
+│ no sessions yet                                                                                                              │      │         │              │                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴──────┴─────────┴──────────────┴────────────────┘
+
+Health
+┌──────────┬───────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item     │ Status    │ Detail                                                                                                                                                 │
+├──────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Gateway  │ reachable │ 6ms                                                                                                                                                    │
+│ WhatsApp │ LINKED    │ linked (auth age 5m)                                                                                                                                   │
+└──────────┴───────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+FAQ: https://docs.openclaw.ai/faq
+Troubleshooting: https://docs.openclaw.ai/troubleshooting
+
+Next steps:
+  Need to share?      openclaw status --all
+  Need to debug live? openclaw logs --follow
+  Need to test channels? openclaw status --deep
+root@pve-openclaw:~# 
+```
+
+**Hier sollten wir doch nochmal Hand anlegen bevor wir durchstarten.**
+
+Wir machen die offenen perönslichen Daten und die Token, die im Klartext in der openclaw.json stehen erstmal sicher und legen eine DAtei für diese Variablen an.
+<br>
+<br>
+Die Datei hat den Namen .env und wirdd im Ordner .openclaw erstellt.
+<br>
+Die .env sollte wie folgt aussehen:
+```bash
+# --- SICHERHEIT & ZUGANG ---
+# Das Token ersetzt den Eintrag in der json. So ist es nicht im Code sichtbar.
+# OpenClaw Token vom den internen Agent.
+
+OPENCLAW_GATEWAY_TOKEN=Hier-steht-der-Gateway-Token-von-OpenClaw
+
+# --- NETZWERK ---
+# Optional, aber sauber getrennt
+
+OPENCLAW_GATEWAY_PORT=18789
+OPENCLAW_GATEWAY_BIND=0.0.0.0
+
+# --- PROVIDER CONFIG (Referenz) ---
+# Konfiguration der einzelnen Provider und der API-Keys.
+# Die Keys sind hier nur als Referenz eingetragen.
+
+# API-Key von LM-Studio, Standard Key da es lokal auf meinem Multimedia-Server läuft.
+# für eine spätere Integration als Offline-Modell
+LM_STUDIO_KEY=lmstudio-local
+LM_STUDIO_MODEL=llama2-70b-chat
+LM_STUDIO_URL=http://192.168.178.xxx
+LM_STUDIO_PORT=11434
+
+
+# API-Key von Anthropic (Claude), Konto wurde mit 5$ Guthaben erstellt.
+ANTHROPIC_API_KEY=Hier-steht-der-Anthropic-API-Key
+
+# API-Key von Google Studio (Gemini) Basis Free Tier.
+GOOGLE_API_KEY=Hier-steht-der-Google-API-Key
+GOOGLE_API_MODEL=gemini-1.5-flash
+GOOGLE_API_DEPLOYMENT=gemini-2.5-flash
+GOOGLE_API_LOCATION=us-central1
+
+
+# --- HINWEIS ZUR TELEFONNUMMER ---
+# OpenClaw benutzt aktuell KEINE direkte Umgebungsvariable von Listen (Arrays) 
+# wie "allowFrom" in der JSON.
+# STRATEGIE: Da die Nummer in der JSON bleiben muss, setze die Datei 
+# 'openclaw.json' auf deine .gitignore Liste, damit sie niemals verï¿½ffentlicht wird!
+
+# Variablen-Werte für die Telefonnummer
+MY_PHONE_NUMBER=+49555Schuh
+
+
+# Whatsapp Gruppen-IDs
+# Gruppe WAMBA
+WHATSAPP_GROUP_xxxxx=12345678901234567890@g.us
+
+# Weiter Keys oder Token und Geheimnisse in der gleichen Syntax
+...
+```
+
+...
