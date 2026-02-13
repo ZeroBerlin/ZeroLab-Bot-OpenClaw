@@ -434,4 +434,275 @@ Jetzt zum Nächsten Schritt. <br>
 |    Custom Provider
 |    Skip for now
 ```
-...
+Ich werde die Basis-Konfiguration mit Google Gemini beginnen. **Hack: KEINE KOSTEN** <br>
+
+Auf Google Studio kann man sich mit seinem Google-Account anmelden und einen API-Key generiren lassen, der als Free-Tier genutzt werden kann. Unter sehr engen Grenzen muss man unter Google-Studio nichts bezahlen.<br>
+
+**Achtung: die Token-Grenze ist sehr eng gefasst.** <br>
+Man darf hier nicht zuviel erwarten und man muss OpenClaw dazu bringen nicht mehr, als rund 14.000 Toke für eine Anfrage zu verwenden.
+
+Ich wähle Google:
+
+```bash
+|  > Google (Gemini API key + OAuth)
+```
+und **(Enter)**
+
+```bash
+*  Google auth method
+|  > Google Gemini API key
+|    Google Antigravity OAuth
+|    Google Gemini CLI OAuth
+|    Back
+```
+Da ich den Free-Tier API-Key in Google-Studio erstellt habe wähle ich **(Google Gemini API key)** und drücke **(Enter)**.
+
+```bash
+*  Enter Gemini API key
+|  [GOOGLE_API_KEY]
+```
+und **(Enter)** drücken, dann geht es weiter zur Auswahl der LLM (Sprach-Modelle) in meiner Variante die von Google Gemini.
+
+```bash
+*  Default model
+|  > Keep current (google/gemini-3-pro-preview)
+|    Enter model manually
+|    google/gemini-1.5-flash
+|    google/gemini-1.5-flash-8b
+|    google/gemini-1.5-pro
+|    google/gemini-2.0-flash
+|    google/gemini-2.0-flash-lite
+|    google/gemini-2.5-flash
+|    google/gemini-2.5-flash-lite
+|    google/gemini-2.5-flash-lite-preview-06-17
+|    google/gemini-2.5-flash-lite-preview-09-2025
+|    google/gemini-2.5-flash-preview-04-17
+|    google/gemini-2.5-flash-preview-05-20
+|    google/gemini-2.5-flash-preview-09-2025
+|    google/gemini-2.5-pro
+|    google/gemini-2.5-pro-preview-05-06
+|    google/gemini-2.5-pro-preview-06-05
+|    google/gemini-3-flash-preview
+|    google/gemini-3-pro-preview
+|    google/gemini-flash-latest
+|    google/gemini-flash-lite-latest
+|    google/gemini-live-2.5-flash
+|    google/gemini-live-2.5-flash-preview-native-audio
+—
+```
+Jetzt wird es interessant, ich zeige hier die Konfiguration die bei mir funktioniert hat und die ich auch getestet habe. <br>
+
+Ich wähle das Modell: **google/gemini-2.5-flash** aus.
+
+```bash
+> google/gemini-2.5-flash (Gemini 2.5 Flash · ctx 1024k · reasoning)
+```
+und wieder **(Enter)** drücken.
+
+Jetzt kommen wir zur "Channel" Konfiguration. Hier wird der Messenger für die spätere Benutzung auf dem Handy eingestellt. <br>
+
+Ich benutze **WhatsApp** die Besonderheit hier ist: OpenClaw spricht in WhatsApp quasi in deinem Namen. Weil wir uns die Telefonnummer teilen.
+
+```bash
+*  Select channel (QuickStart)
+|  > Telegram (Bot API) (not configured)
+|    WhatsApp (QR link)
+|    Discord (Bot API)
+|    IRC (Server + Nick)
+|    Google Chat (Chat API)
+|    Slack (Socket Mode)
+|    Signal (signal-cli)
+|    iMessage (imsg)
+|    Feishu/Lark (飞书)
+|    Nostr (NIP-04 DMs)
+|    Microsoft Teams (Bot Framework)
+|    Mattermost (plugin)
+|    Nextcloud Talk (self-hosted)
+|    Matrix (plugin)
+|    BlueBubbles (macOS app)
+|    LINE (Messaging API)
+|    Zalo (Bot API)
+|    Zalo (Personal Account)
+|    Tlon (Urbit)
+|    Skip for now
+```
+
+Also WhatsApp auswählen ...
+
+```bash
+*  Select channel (QuickStart)
+|    Telegram (Bot API)
+|  > WhatsApp (QR link) (not configured)
+|    Discord (Bot API)
+|    IRC (Server + Nick)
+|    Google Chat (Chat API)
+|    Slack (Socket Mode)
+|    Signal (signal-cli)
+|    iMessage (imsg)
+|    Feishu/Lark (飞书)
+|    Nostr (NIP-04 DMs)
+|    Microsoft Teams (Bot Framework)
+|    Mattermost (plugin)
+|    Nextcloud Talk (self-hosted)
+|    Matrix (plugin)
+|    BlueBubbles (macOS app)
+|    LINE (Messaging API)
+|    Zalo (Bot API)
+|    Zalo (Personal Account)
+|    Tlon (Urbit)
+|    Skip for now
+—
+```
+... und erneut mit **(Enter)** bestätigen.
+
+Jetzt muss das Handy, wie für die Benutzung von WhatsApp Web gekoppelt werden. Dies erfolgt über einen QR-Code der jetzt angezeigt wird.
+
+```bash
+o  WhatsApp linking ----------------------------------------------------------------------+
+|                                                                                         |
+|  Scan the QR with WhatsApp on your phone.                                               |
+|  Credentials are stored under /root/.openclaw/credentials/whatsapp/default/ for future  |
+|  runs.                                                                                  |
+|  Docs: whatsapp                            |
+|                                                                                         |
++-----------------------------------------------------------------------------------------+
+|
+*  Link WhatsApp now (QR)?
+|  > Yes /   No
+```
+Bereite dein Handy vor, wähle WhatsApp gehe unten rechts auf dein Profilbild. (unter iOS für iPhone) und dann oben rechts in der Ecke auf das QR-Code Symbol.
+
+Jetzt bist du bereit ...
+
+**(Yes)** bestättigen
+
+```bash
+o  Link WhatsApp now (QR)?
+|  Yes
+Waiting for WhatsApp connection...
+Scan this QR in WhatsApp (Linked Devices):
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+█ ▄▄▄▄▄ ██▀██▀▄▀▀▄█▄▄▄█ ▄▄▄▄ ▀▄▄▀▀█  ▄▄ ▀█▄ ▄██▄ ██ ▄▄▄▄▄ █
+█ █   █ █▄▄   ▄███▄▄▀▄▄██▄█▄█▄█ ██▄▄▄██▄▄█▄ ██▀▄ ██ █   █ █
+█ █▄▄▄█ ██ ██ ███▄ ▀ ▀▀▄█▄▀ ▄▄▄ ▀ █      ▄▄  ▀ ▀▄██ █▄▄▄█ █
+█▄▄▄▄▄▄▄█ █ █ ▀▄▀▄█▄█ █▄▀▄▀ █▄█ █▄█ █ ▀ ▀▄█▄█ ▀▄█ █▄▄▄▄▄▄▄█
+```
+```bash
+█ █▄▄▄█ █ ▄▄█  ██▀▄▄ ▄ ██▀█ ▄▄█▀ ▄█▀▀▀▄▀▀▀ ▀▄  ▀▄ ██ ▄██▀▄█
+█▄▄▄▄▄▄▄█▄▄▄████▄██▄██▄▄▄▄▄▄█▄█▄▄███▄▄██▄▄█▄█▄█▄▄█▄▄▄▄██▄▄█
+
+WhatsApp asked for a restart after pairing (code 515); creds are saved. Restarting connection once…
+✅ Linked after restart; web session ready.
+|
+o  WhatsApp DM access ------------------------------------------------------+
+|                                                                           |
+|  WhatsApp direct chats are gated by `channels.whatsapp.dmPolicy` +        |
+|  `channels.whatsapp.allowFrom`.                                           |
+|  - pairing (default): unknown senders get a pairing code; owner approves  |
+|  - allowlist: unknown senders are blocked                                 |
+|  - open: public inbound DMs (requires allowFrom to include "*")           |
+|  - disabled: ignore WhatsApp DMs                                          |
+|                                                                           |
+|  Current: dmPolicy=pairing, allowFrom=unset                               |
+|  Docs: whatsapp              |
+|                                                                           |
++---------------------------------------------------------------------------+
+|
+*  WhatsApp phone setup
+|  > This is my personal phone number
+|    Separate phone just for OpenClaw
+—
+```
+Wenn du es bis hier geschaft hast **"Herzlichen Glückwunsch"** OpenClaw kann jetzt Messenger.
+
+Wie du hier siehst muss noch deine Handynummer eingetragen werden.
+```bash
++---------------------------------------------------------------------------+
+|
+*  WhatsApp phone setup
+|  > This is my personal phone number
+|    Separate phone just for OpenClaw
+—
+```
+Machen wir das, wähle ...
+```bash
+|  > This is my personal phone number
+```
+aus und drücke erneut **(Enter)** <br>
+Trage jetzt in dem unteren Format deine Handynummer ein.
+```bash
+*  Your personal WhatsApp number (the phone you will message from)
+|  +15555550123
+—
+```
+In meinem Fall eine Handynummer aus Deutschland +49 ohne die 0 in der Vorwahl und die Nummer. Keine Leerzeichen oder Bindestrichen, Bsp.: +49151987654321
+```bash
+*  Your personal WhatsApp number (the phone you will message from)
+|  +49151555Schuh
+—
+```
+**-Fertig-**
+Siehe Ausgabe:
+```bash
+o  WhatsApp personal phone -----------------------+
+|                                                 |
+|  Personal phone mode enabled.                   |
+|  - dmPolicy set to allowlist (pairing skipped)  |
+|  - allowFrom includes +49151555Schuh            |
+|                                                 |
++-------------------------------------------------+
+|
+o  Selected channels ---------------------------------------------------------------+
+|                                                                                   |
+|  WhatsApp — works with your own number; recommend a separate phone + eSIM. Docs:  |
+|  whatsapp                   |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+Updated ~/.openclaw/openclaw.json
+Workspace OK: ~/.openclaw/workspace
+Sessions OK: ~/.openclaw/agents/main/sessions
+|
+o  Skills status -------------+
+|                             |
+|  Eligible: 3                |
+|  Missing requirements: 39   |
+|  Unsupported on this OS: 7  |
+|  Blocked by allowlist: 0    |
+|                             |
++-----------------------------+
+|
+*  Configure skills now? (recommended)
+|  > Yes /   No
+—
+```
+
+Skills möchte ich noch nicht installieren, das kommt später. Aslo **(No)** auswählen ...
+
+```bash
+*  Configure skills now? (recommended)
+|    Yes / > No
+```
+und **(Enter)**
+
+Es ist fast geschaft ... der nächste Konfig-Bereich:
+
+```bash
+o  Configure skills now? (recommended)
+|  No
+|
+o  Hooks ----------------------------------------------------------+
+|                                                                  |
+|  Hooks let you automate actions when agent commands are issued.  |
+|  Example: Save session context to memory when you issue /new.    |
+|                                                                  |
+|  Learn more: https://docs.openclaw.ai/hooks                      |
+|                                                                  |
++------------------------------------------------------------------+
+|
+*  Enable hooks?
+|  [•] Skip for now
+|  [ ] 🚀 boot-md
+|  [ ] 📝 command-logger
+|  [ ] 💾 session-memory
+—
+```
