@@ -263,4 +263,34 @@ Wichtige Handlungsanweisung für das "ZeroLab"-Setup: Da wir eine maßgeschneide
 2. Sobald der Wizard nach dem Modus fragt (oder "Onboarding mode"), brich den Vorgang sofort mit der Tastenkombination STRG + C ab.
 Ergebnis: Die Software und alle Abhängigkeiten sind installiert, aber es wurden noch keine Standard-Konfigurationsdateien angelegt. Dies gibt uns die Freiheit, unsere eigene Struktur im nächsten Schritt sauber aufzubauen.
 
-----
+```bash
+root@pve-openclaw:~# curl -fsSL https://openclaw.ai/install.sh | bash
+```
+Ausgabe:
+```bash
+╭───────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                       │
+│  🦞 OpenClaw Installer                                                                │
+│  I'm not saying your workflow is chaotic... I'm just bringing a linter and a helmet.  │
+│  modern installer mode                                                                │
+│                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────╯
+
+✓ gum bootstrapped (temp, verified, v0.17.0)
+✓ Detected: linux
+            
+Install plan
+            
+OS                  linux
+Install method      npm
+Requested version   latest
+                           
+[1/3] Preparing environment
+                           
+INFO Node.js not found, installing it now
+INFO Installing Node.js via NodeSource
+INFO Installing Linux build tools (make/g++/cmake/python3)
+⣯  Installing build tools  
+```
+
+...
