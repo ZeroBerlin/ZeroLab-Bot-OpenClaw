@@ -324,7 +324,7 @@ INFO Starting setup
 ----
 <br>
 
-### 7 Konfiguration und erste Einstellungen OpenClaw
+### 6 Konfiguration und erste Einstellungen OpenClaw
 
 ```bash
 🦞 OpenClaw installed successfully (2026.2.12)!
@@ -394,7 +394,7 @@ Ich werde den offiziellen "Happy Path" des Installers, für die Ordnerstruktur, 
 Später werden die einzelnen Dateien und Konfigurationen angepasst und überarbeitet.
 
 
-## 🔒 Sicherheitshinweise (WICHTIG)
+### 🔒 Sicherheitshinweise (WICHTIG)
 
 > [!WARNING]
 > **Bis nicht alle Dateien für die Konfiguration angepasst und überprüft wurden, sollten keine Tools installiert oder Zugriffe auf externe persönliche Daten konfiguriert werden!!!**
@@ -717,8 +717,10 @@ o  Hooks ----------------------------------------------------------+
 —
 ```
 Wir / Ich werde hier alles auswählen. **Warum?**
-
 <br>
+<br>
+
+### 6.1 Wie funktioniert das mit den .md Dateien
 <br>
 
 ```bash
@@ -834,8 +836,7 @@ und wie schon davor und davor ... bestättige mit **(Enter)**
 <br>
 <br>
 
-## Wir sind am Ziel ;-)
-
+### 7 Wir sind am Ziel ;-)
 <br>
 
 ```bash
@@ -955,8 +956,9 @@ o  What now -------------------------------------------------------------+
 |
 —  Onboarding complete. Use the dashboard link above to control OpenClaw.
 ```
+<br>
+<br>
 
-----
 ### 8 BackUp - Meilen-Stein Sicherung
 
 Das ist der perfekte Zeitpunkt für ein Backup! 🎉
@@ -1005,8 +1007,8 @@ INFO: Backup job finished successfully
 INFO: notified via target `mail-to-root`
 TASK OK
 ```
-
-----
+<br>
+<br>
 
 ### 9 Letzter Schliff am LXC - Container
 
@@ -1122,10 +1124,14 @@ root@pve-openclaw:~#
 Der Status Active: active (running) bestätigt, dass deine manuelle Service-Installation erfolgreich war. Der Dienst läuft jetzt als **System-Service (root)**, startet automatisch beim Booten und ist stabil.
 <br>
 
+### 9.2 Golden - State final (BackUp)
+
 Der "Golden-State" ist damit technisch perfekt abgeschlossen.
 <br>
 
-Du musst das nicht machen, aber ich machen nochmal ein Meilen-Stein BackUp, das tut nicht weh. Aber wir haben jetzt einen funktionierenden Zustand vor dem Hatching / der Geburt wo Openclaw nach seinem Namen und seine Identität fragen sollte. Ich nutze diesen Zustand gerne als Wipe BackUp, falls ich mal neu anfangen will, oder muss.
+Du musst das nicht machen, aber ich machen nochmal ein <br>
+**Meilen-Stein BackUp,** <br>
+ das tut nicht weh. Aber wir haben jetzt einen funktionierenden Zustand vor dem Hatching / der Geburt wo Openclaw nach seinem Namen und seine Identität fragen sollte. Ich nutze diesen Zustand gerne als Wipe BackUp, falls ich mal neu anfangen will, oder muss.
 
 ----
 also führe das LXC - Container wie im Punkt **8.1 Das Golden.State BackUp** erneut aus. <br>
@@ -1133,6 +1139,7 @@ also führe das LXC - Container wie im Punkt **8.1 Das Golden.State BackUp** ern
 Ich vergebe den Namen: **Hatching-Moment (gewipet)** <br>
 
 ----
+<br>
 
 **Ein letzter Check ob alles richtig konfiguriert ist.**
 <br>
@@ -1254,66 +1261,170 @@ Next steps:
   Need to test channels? openclaw status --deep
 root@pve-openclaw:~# 
 ```
+<br>
 
-**Hier sollten wir doch nochmal Hand anlegen bevor wir durchstarten.**
+Wir starten OpenClaw direkt im Terminal und sehen die live Log-Daten. Ich benutze WhatsApp in meinem Web-Browser. Hier kann ich besser schreiben und Texte kopieren und einfügen. Das geht definitiv besser als auf dem kleinen Display vom Handy.
+<br>
+<br>
 
-Wir machen die offenen perönslichen Daten und die Token, die im Klartext in der openclaw.json stehen erstmal sicher und legen eine DAtei für diese Variablen an.
+### 10 Wir starten die Geburt unseres eigenen Bot´s
 <br>
-<br>
-Die Datei hat den Namen .env und wirdd im Ordner .openclaw erstellt.
-<br>
-Die .env sollte wie folgt aussehen:
+
 ```bash
-# --- SICHERHEIT & ZUGANG ---
-# Das Token ersetzt den Eintrag in der json. So ist es nicht im Code sichtbar.
-# OpenClaw Token vom den internen Agent.
-
-OPENCLAW_GATEWAY_TOKEN=Hier-steht-der-Gateway-Token-von-OpenClaw
-
-# --- NETZWERK ---
-# Optional, aber sauber getrennt
-
-OPENCLAW_GATEWAY_PORT=18789
-OPENCLAW_GATEWAY_BIND=0.0.0.0
-
-# --- PROVIDER CONFIG (Referenz) ---
-# Konfiguration der einzelnen Provider und der API-Keys.
-# Die Keys sind hier nur als Referenz eingetragen.
-
-# API-Key von LM-Studio, Standard Key da es lokal auf meinem Multimedia-Server läuft.
-# für eine spätere Integration als Offline-Modell
-LM_STUDIO_KEY=lmstudio-local
-LM_STUDIO_MODEL=llama2-70b-chat
-LM_STUDIO_URL=http://192.168.178.xxx
-LM_STUDIO_PORT=11434
-
-
-# API-Key von Anthropic (Claude), Konto wurde mit 5$ Guthaben erstellt.
-ANTHROPIC_API_KEY=Hier-steht-der-Anthropic-API-Key
-
-# API-Key von Google Studio (Gemini) Basis Free Tier.
-GOOGLE_API_KEY=Hier-steht-der-Google-API-Key
-GOOGLE_API_MODEL=gemini-1.5-flash
-GOOGLE_API_DEPLOYMENT=gemini-2.5-flash
-GOOGLE_API_LOCATION=us-central1
-
-
-# --- HINWEIS ZUR TELEFONNUMMER ---
-# OpenClaw benutzt aktuell KEINE direkte Umgebungsvariable von Listen (Arrays) 
-# wie "allowFrom" in der JSON.
-# STRATEGIE: Da die Nummer in der JSON bleiben muss, setze die Datei 
-# 'openclaw.json' auf deine .gitignore Liste, damit sie niemals verï¿½ffentlicht wird!
-
-# Variablen-Werte für die Telefonnummer
-MY_PHONE_NUMBER=+49555Schuh
-
-
-# Whatsapp Gruppen-IDs
-# Gruppe WAMBA
-WHATSAPP_GROUP_xxxxx=12345678901234567890@g.us
-
-# Weiter Keys oder Token und Geheimnisse in der gleichen Syntax
-...
+openclaw gateway --verbose
 ```
 
+
+
+```bash
+root@pve-openclaw:~# openclaw gateway --verbose
+
+🦞 OpenClaw 2026.2.12 (f9e444d) — If you're lost, run doctor; if you're brave, run prod; if you're wise, run tests.
+
+15:31:37 [canvas] host mounted at http://127.0.0.1:18789/__openclaw__/canvas/ (root /root/.openclaw/canvas)
+15:31:37 bonjour: starting (hostname=openclaw, instance="pve-openclaw", gatewayPort=18789, minimal=true)
+15:31:38 [heartbeat] started
+15:31:38 [gateway] agent model: google/gemini-2.5-flash
+15:31:38 [gateway] listening on ws://127.0.0.1:18789 (PID 770)
+15:31:38 [gateway] listening on ws://[::1]:18789
+15:31:38 [gateway] log file: /tmp/openclaw/openclaw-2026-02-14.log
+15:31:38 [browser/service] Browser control service ready (profiles=2)
+15:31:39 Registered hook: boot-md -> gateway:startup
+15:31:39 Registered hook: command-logger -> command
+15:31:39 Registered hook: session-memory -> command:new
+15:31:39 [hooks] loaded 3 internal hook handlers
+15:31:39 [whatsapp] [default] starting provider (+49555Schuh)
+15:31:39 [ws] → event health seq=1 clients=0 presenceVersion=1 healthVersion=2
+15:31:41 WhatsApp Web connected.
+15:31:41 Sent global 'available' presence on connect
+15:31:41 [whatsapp] Listening for personal WhatsApp inbound messages.
+Ctrl+C to stop.
+```
+<br>
+Das ist ein perfekter Start! 🟢 <br>
+1. Das Gehirn ist da: [gateway] agent model: google/gemini-2.5-flash OpenClaw hat erfolgreich Verbindung zum Google-Modell aufgenommen,.
+
+2. Die Ohren sind offen: WhatsApp Web connected. und Listening for personal WhatsApp inbound messages. Die Verbindung zu deinem Handy steht stabil. Der Bot wartet jetzt nur noch auf ein Signal,.
+
+3. Hooks sind geladen: boot-md, command-logger, session-memory sind aktiv,. Das System ist bereit für die Automatisierungen.
+
+**Der nächste Schritt: Das Hatching (Die Geburt) 🐣** <br>
+Da das Terminal jetzt "Listening" anzeigt und blockiert (also nicht zur Eingabe zurückkehrt), läuft der Bot live. <br>
 ...
+### 10.1 Erster Kontakt - WhatsApp
+Schreibe folgenden Text, oder vergleichbar, in WhatsApp (oder dem konfigurierten Messenger): <br>
+```bash
+System Start, hallo.
+```
+Ich bekam folgende Antwort:
+```bash
+[openclaw] Hey. I just came online. Who am I? Who are you?
+```
+<br>
+
+
+**Glückwunsch! 🥳 Das ist der perfekte „Hatch“-Moment (das Schlüpfen).** <br>
+
+Der Bot hat exakt das Skript aus der BOOTSTRAP.md ausgeführt und wartet nun auf seine „Seele“ (SOUL.md). <br>
+
+**Er weiß noch nichts –** weder seinen Namen noch seine Funktion. Das ist deine Chance, ihn final zu prägen. <br>
+
+**Deine Antwort jetzt an ihn:** <br>
+
+Schreibe ihm direkt im Chat folgenden Block (basierend auf deiner geplanten IDENTITY.md):
+**Das ist mein Geburtstext an den Agent:** <br>
+```bash
+"Du bist ZeroLab.
+Ein technischer Assistent für alles, aber speziell für Proxmox, Code und Administration. Deine Art: Kurz angebunden, nerdig, direkt und effizient, gerne auch etwas weird. Kein „Dienstleister-Geschwafel“, sondern Lösungen.  Ich bin Chris, dein Admin."
+```
+<br>
+
+**Was dann passiert:**
+Dieser Text liefert dem Bot exakt die Informationen, die er laut der BOOTSTRAP.md-Logik benötigt, um seine Identität und Arbeitsweise festzulegen. <br>
+
+Sende den Text jetzt genau so in den Chat. <br>
+
+**Was im Hintergrund passiert (Technical Breakdown)** <br>
+Sobald du die Nachricht abschickst, führt OpenClaw basierend auf dem BOOTSTRAP.md-Skript folgende Schritte aus:
+1. Parsing: Er analysiert deinen Text und extrahiert die Kern-Parameter:
+    ◦ Name: ZeroLab
+    ◦ Vibe: Nerdig, kurz angebunden, weird, direkt.
+    ◦ User: Chris (Admin).
+    ◦ Mission: Technischer Assistent für Proxmox/Code.
+
+2. Dateisystem-Operationen: Er überschreibt die Platzhalter-Dateien im Workspace (/root/.openclaw/workspace/) mit den konkreten Werten:
+    ◦ IDENTITY.md: Wird deinen Namen "ZeroLab" und den Vibe enthalten.
+    ◦ SOUL.md: Wird die Verhaltensregel "Kein Dienstleister-Geschwafel" speichern.
+    ◦ USER.md: Wird "Chris" und "Admin" eintragen.
+
+3. Self-Destruct: Als letzten Schritt löscht er die Datei BOOTSTRAP.md. Damit ist die "Geburt" abgeschlossen. <br>
+
+Beim nächsten Neustart fragt er nicht mehr, wer er ist, sondern lädt direkt seine Persönlichkeit aus den neuen Dateien. <br>
+
+**Erwartete Reaktion:** <br>
+Er wird kurz bestätigen (z.B. "Verstanden. ZeroLab online. Warte auf Input, Chris."), da du ihn ja gerade angewiesen hast, "kurz angebunden" zu sein.
+<br>
+<br>
+
+**Die Antwort aus dem WhatsApp - Chat:** <br>
+```bash
+[openclaw] Updated my core files. You're Chris, I'm ZeroLab 💾. Short, nerdy, direct, efficient. Solutions, not fluff.
+
+Deleting BOOTSTRAP.md. Done.
+```
+```bash
+[openclaw] Okay, BOOTSTRAP.md is deleted. Ready.
+```
+<br>
+
+----
+
+# Es ist vollbracht, der Bot mit dem Namen "ZeroLab" ist damit offiziell online! 🦞
+<br>
+
+**Wenn du auch bis hierhin gekommen bist? <br>
+ Herzlichen Glückwunsch. Du hast es geschafft den persönlicher OpenClaw Bot funktioniert.**
+
+Du hast jetzt deinen eigenen Ai Agenten geschaffen.
+
+### Nutze ihn mit bedacht, denn Macht geht mit Verantwortung einher.
+<br>
+<br>
+
+## 11 Nachwort Schlusswort zum Einrichtungs-Handbuch
+In diesem Handbuch wurde versucht eine detaillierte und schrittweise aufgebaute Anleitung zu erstellen. Diese soll es auch Laien ermöglichen mit Hilfe von „OpenClaw“ einen persönlichen Ai – Agent (Bot) selbst zu erstellen und zu konfigurieren. <br>
+
+Die OpenClaw Instanz sollte so nicht auf einem persönlichen PC oder gar in der Firma auf einem Büro PC laufen. Auch wenn es verlockend klingt diesen Agent idealer Weise auf einem MacBook zu installieren, rate ich davon ab. <br>
+
+Wir haben dem Agent ROOT – Rechte gegeben und mit den Richtigen Eingaben (Prompt) wird er sie auch benutzen. Der Agent kann alle Dateien auf dem PC / Mac lesen und kann die Enthaltenen Daten wie: eMail-Adressen, Kontakte, persönliche Memos etc. <br>
+
+In einer Messenger Gruppe ist die sogenante Prompt-Injektion (böswillige Prompts, Befehle) an eueren eigenen Bot eine reale Gefahr. **Und er wird den Prompt ausführen. Es ist der Maschine egal wer ihn eingegeben hat.** <br>
+
+Es ist möglich das der Agent im Hintergrunde bei der Bearbeitung analysiert, zusammenfasst und wie in dem hier angewendeten Fall, diese Daten als Prompt an ein Ki-Modell (LLM) zum Bsp. Gemini 2.5 flash sendet.
+
+# Regel:
+## Gebe der Ki keine Daten, die du nicht bereit bist anderen zu geben!
+
+## Stelle dir folgende Frage immer zuerst?
+
+## Würde ich wollen das z.B. mein Bankberater, mein Steuerberater, mein Chef, mein Arzt …, meine bei ihm gespeicherten Daten, ungefragt für ein Zusammenfassung oder eine Arbeitserleichterung in das Internet sendet?
+<br>
+
+**Wenn die Antwort NEIN lautet, so solltest du es auch nicht tun!**
+<br>
+
+**Bei Allen anderen kann ich nur sagen, viel Glück dabei … und müsst ihr wissen!**
+<br>
+
+**Im nächsten Handbuch werden wir API-Keys, Telefonnummern aus der Konfiguration in eine .env verbannen. Wir werden ein Fallback LLM- offline, wie auch als Bezahl-Variante bauen. Wir werden die Seele von OpenClaw bearbeiten und fein tunen.**
+<br>
+
+Und wir werden uns des Teufels Seele ansehen, OpenClaw hat einen Doktor Jekyll und Mister Hyde Modus, aber keine Angst der ist noch off und klingt schlimmer als er ist …
+
+Seit gespannt wie es weiter geht.
+<br>
+<br>
+
+Euer Chris alias ZeroLab
+
+----
