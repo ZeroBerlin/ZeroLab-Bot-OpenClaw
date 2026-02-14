@@ -324,7 +324,7 @@ INFO Starting setup
 ----
 <br>
 
-### 6 Konfiguration und erste Einstellungen OpenClaw
+#### 6.1 Konfiguration und erste Einstellungen OpenClaw
 
 ```bash
 🦞 OpenClaw installed successfully (2026.2.12)!
@@ -344,7 +344,7 @@ INFO Starting setup
 
 ```
 
-#### 7.1 Der Onbording Prozess von OpenClaw
+#### 6.2 Der Onbording Prozess von OpenClaw
 
 ```bash
 T  OpenClaw onboarding
@@ -720,7 +720,7 @@ Wir / Ich werde hier alles auswählen. **Warum?**
 <br>
 <br>
 
-### 6.1 Wie funktioniert das mit den .md Dateien
+#### 6.3 Wie funktioniert das mit den .md Dateien
 <br>
 
 ```bash
