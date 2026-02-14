@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.3-1",
+    "lastTouchedAt": "2026-02-08T13:25:05.520Z",
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-5",
+        "fallbacks": []
+      },
+      "workspace": "/root/.openclaw/workspace"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "selfChatMode": true,
+      "dmPolicy": "allowlist",
+      "responsePrefix": "[ZeroLab] ",
+      "allowFrom": [
+        "${MY_PHONE_NUMBER}"
+      ],
+      "groupPolicy": "allowlist",
+      "debounceMs": 3000,
+      "groupAllowFrom": [
+        "${WHATSAPP_GROUP_WAMBA}"
+      ]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-08T13:25:05.512Z",
+    "lastRunVersion": "2026.2.3-1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  }
+}
