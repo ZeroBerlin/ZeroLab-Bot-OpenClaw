@@ -1,3 +1,5 @@
+![Version](https://img.shields.io/badge/Version_1.0-Status_final-success?logo=github&logoColor=white)
+
 # 📘 ZeroLab: OpenClaw Einrichtungs-Handbuch
 
 ### Version: 1.0 (ZeroLab Edition 2026) Fokus: Schritt-für-Schritt Installation & Konfiguration

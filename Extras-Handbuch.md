@@ -1,6 +1,5 @@
 
-![Status](https://img.shields.io/badge/Status-in_Arbeit-yellow)
-![Status](https://img.shields.io/badge/Status-Building-orange)
+![Version 0.3](https://img.shields.io/badge/Version_0.3-Status_InArbeit-orange?logo=git&logoColor=white)
 
 # <u> Extras - Funktionserweiterung - mehr Macht </u>
 
