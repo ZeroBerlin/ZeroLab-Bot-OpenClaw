@@ -7,15 +7,19 @@
 
 <br>
 
+---
 ### Wir bauen LLM Redundanz oder auch Fallback
 
 <br>
 
+---
 ### Gehe auf die "Dunkle Seite der Macht" Zugriff auf voll Root für den Bot
 
 <br>
 
-### Die Gehirnwäsche, bereinigen des MEMORY
+---
+### <u> Die Gehirnwäsche, bereinigen des MEMORY </u>
+
 Der Bot wird sein IDENTITY und seine SOUL und sein TOOL noch kennen!
 
 Was wir bereinigen wollen ist, alles was sich OpenClaw selbst gemert und arschiviert hat. <br>
