@@ -3,6 +3,8 @@
 **/.env
 .openclaw/openclaw.json
 openclaw.json
+auth-openclaw.json
+**/auth-openclaw.json  
 
 # --- OpenClaw Laufzeit-Daten (Privat!) ---
 # Chat-Verläufe und Logs
