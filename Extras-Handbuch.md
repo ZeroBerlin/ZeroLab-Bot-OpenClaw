@@ -105,6 +105,8 @@ Komentare erwünscht ..., geht auch hier mit // ... <br>
 Leerzeilen sind erlaubt und bringen Struktur ...
 
 ```bash
+// Hier gehts los, ein Kommentar und Leerzeilen sind erlaubt
+
 {
   "messages": {
     "ackReactionScope": "group-mentions"
@@ -135,9 +137,11 @@ Leerzeilen sind erlaubt und bringen Struktur ...
         "memoryFlush": { "enabled": true }
       },
       "workspace": "/root/.openclaw/workspace",
+
       "model": {
         // 1. Primäres LLM Google Gemini (kostenlos)
         "primary": "google/gemini-2.5-flash",
+        
         // 2. Fallback auf Anthropic Claude, wenn Google das Limit erreicht (429)
         "fallbacks": [
           "anthropic/claude-sonnet-4-5"
