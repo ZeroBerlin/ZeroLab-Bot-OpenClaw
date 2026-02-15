@@ -14,9 +14,7 @@
 
 ### Gehe auf die "Dunkle Seite der Macht" Zugriff auf voll Root für den Bot
 
-<br>
-
-<br>
+<br> <br>
 
 ...
 
@@ -32,14 +30,20 @@ Hier wird noch wild und unformatiert alles Reingeworfen.
 **Hier sollten wir doch nochmal Hand anlegen bevor wir durchstarten.**
 
 Wir machen die offenen perönslichen Daten und die Token, die im Klartext in der openclaw.json stehen erstmal sicher und legen eine DAtei für diese Variablen an.
-<br>
-<br>
+
+<br> <br>
+
 Die Datei hat den Namen .env und wirdd im Ordner .openclaw erstellt.
 <br>
 Die .env sollte wie folgt aussehen:
 
-```bash
+<br> 
 
+**Beispiel .env** <br>
+Komentare erwünscht ... <br>
+Leerzeilen sind erlaubt und bringen Struktur ...
+
+```bash
 # --- SICHERHEIT & ZUGANG ---
 # Das Token ersetzt den Eintrag in der json. So ist es nicht im Code sichtbar.
 # OpenClaw Token vom den internen Agent.
@@ -95,6 +99,11 @@ WHATSAPP_GROUP_xxxxx=12345678901234567890@g.us
 
 ## <u> Angepasste openclaw.json </u>
 <br>
+
+
+**Beispiel openclaw.json**<br>
+Komentare erwünscht ..., geht auch hier mit // ... <br>
+Leerzeilen sind erlaubt und bringen Struktur ...
 
 ```bash
 {
@@ -212,3 +221,7 @@ WHATSAPP_GROUP_xxxxx=12345678901234567890@g.us
   }
 }
 ```
+
+---
+
+...
