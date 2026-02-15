@@ -50,6 +50,14 @@ Startet den Service für Openclaw neu
 ----
 
 ```bash
+journalctl -u openclaw --follow
+```
+
+Fordlaufender Status / Log im Terminal (Staop mit STRG - C)
+
+----
+
+```bash
 journalctl -u openclaw -n 50 --no-pager
 ```
 
