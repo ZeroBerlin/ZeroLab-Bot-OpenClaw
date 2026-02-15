@@ -6,7 +6,6 @@
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
 ![GPU](https://img.shields.io/badge/GPU-RTX_3070-76B900?logo=nvidia&logoColor=white)
 ![LLM](https://img.shields.io/badge/LLM-Llama%203.2-orange)
-
 ![Gemini](https://img.shields.io/badge/LLM-Gemini_2.5-4285F4?logo=google&logoColor=white)
 ![Claude](https://img.shields.io/badge/LLM-Claude-AE8C7E?logo=anthropic&logoColor=white)
 ![Messenger](https://img.shields.io/badge/Messenger-WhatsApp-25D366)
