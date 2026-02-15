@@ -1,10 +1,17 @@
 # 🦞 ZeroLab OpenClaw Edition
 
+<br>
+
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
 ![GPU](https://img.shields.io/badge/GPU-RTX_3070-76B900?logo=nvidia&logoColor=white)
 ![LLM](https://img.shields.io/badge/LLM-Llama%203.2-orange)
+
+![Gemini](https://img.shields.io/badge/LLM-Gemini_2.5-4285F4?logo=google&logoColor=white)
+![Claude](https://img.shields.io/badge/LLM-Claude-AE8C7E?logo=anthropic&logoColor=white)
 ![Messenger](https://img.shields.io/badge/Messenger-WhatsApp-25D366)
+
+<br>
 
 Willkommen im **ZeroLab**. Dies ist mein persönliches, lokal gehostetes Setup für einen autonomen KI-Agenten basierend auf [OpenClaw](https://github.com/openclaw/openclaw).
 Das Ziel dieses Projekts ist **maximale Privatsphäre bei voller Autonomie**. Der Agent läuft auf eigener Hardware, nutzt lokale LLMs via LM Studio und kommuniziert über WhatsApp.
