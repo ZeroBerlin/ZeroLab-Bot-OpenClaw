@@ -1,30 +1,19 @@
+// Hier gehts los, ein Kommentar und Leerzeilen sind erlaubt
+
 {
-  "meta": {
-    "lastTouchedVersion": "2026.2.3-1",
-    "lastTouchedAt": "2026-02-08T13:25:05.520Z"
+  "messages": {
+    "ackReactionScope": "group-mentions"
   },
   "models": {
     "providers": {
-      "lmstudio": {
-        "baseUrl": "http://192.168.178.100:11434/v1",
-        "apiKey": "lmstudio-local",
-        "api": "openai-responses",
+      "google": {
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "apiKey": "${GOOGLE_API_KEY}",
         "models": [
           {
-            "id": "meta-llama-3.1-8b-instruct",
-            "name": "Llama 3.1 8B ZeroLab",
-            "contextWindow": 16384,
-            "maxTokens": 4096,
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            }
+            "id": "gemini-2.5-flash",
+            "name": "Gemini 2.5 Flash",
+            "contextWindow": 200000
           }
         ]
       }
@@ -32,29 +21,56 @@
   },
   "agents": {
     "defaults": {
-      "model": {
-        "primary": "lmstudio/meta-llama-3.1-8b-instruct"
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
       },
-      "workspace": "/root/.openclaw/workspace"
+      "compaction": {
+        "mode": "safeguard",
+        "memoryFlush": { "enabled": true }
+      },
+      "workspace": "/root/.openclaw/workspace",
+
+      "model": {
+        // 1. Primäres LLM Google Gemini (kostenlos)
+        "primary": "google/gemini-2.5-flash",
+        
+        // 2. Fallback auf Anthropic Claude, wenn Google das Limit erreicht (429)
+        "fallbacks": [
+          "anthropic/claude-sonnet-4-5"
+        ]
+      }
     }
   },
   "gateway": {
-    "port": 18789,
     "mode": "local",
     "auth": {
       "mode": "token",
-      "token": "interer-Agent-Token"
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    },
+    "port": 18789,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "calendar.add",
+        "contacts.add",
+        "reminders.add"
+      ]
     }
   },
-  "channels": {
-    "whatsapp": {
-      "selfChatMode": true,
-      "dmPolicy": "allowlist",
-      "allowFrom": [
-        "+555Schuh"
-      ],
-      "groupPolicy": "allowlist",
-      "debounceMs": 3000
+  "auth": {
+    "profiles": {
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
+      }
     }
   },
   "plugins": {
@@ -64,10 +80,39 @@
       }
     }
   },
+  "channels": {
+    "whatsapp": {
+      "selfChatMode": true,
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "${MY_PHONE_NUMBER}"
+      ]
+    }
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
   "wizard": {
-    "lastRunAt": "2026-02-08T13:25:05.512Z",
-    "lastRunVersion": "2026.2.3-1",
-    "lastRunCommand": "doctor",
+    "lastRunAt": "2026-02-13T17:24:12.522Z",
+    "lastRunVersion": "2026.2.12",
+    "lastRunCommand": "onboard",
     "lastRunMode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.2.12",
+    "lastTouchedAt": "2026-02-13T17:24:12.539Z"
   }
 }
