@@ -1,12 +1,33 @@
+
+![Status](https://img.shields.io/badge/Status-in_Arbeit-yellow)
+![Status](https://img.shields.io/badge/Status-Building-orange)
+
 # <u> Extras - Funktionserweiterung - mehr Macht </u>
 
 ### Geheimnisse in die .env schreiben
 
 <br>
-![Status](https://img.shields.io/badge/Status-in_Arbeit-yellow)
+
+### Wir bauen LLM Redundanz oder auch Fallback
+
 <br>
-![Status](https://img.shields.io/badge/Status-Building-orange)
+
+### Gehe auf die "Dunkle Seite der Macht" Zugriff auf voll Root für den Bot
+
 <br>
+
+<br>
+
+...
+
+Hier wird noch wild und unformatiert alles Reingeworfen.
+
+---
+
+## *** Die Datenschleuder ***
+
+---
+
 
 **Hier sollten wir doch nochmal Hand anlegen bevor wir durchstarten.**
 
