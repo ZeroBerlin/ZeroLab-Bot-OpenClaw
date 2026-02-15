@@ -13,6 +13,53 @@
 
 ### Gehe auf die "Dunkle Seite der Macht" Zugriff auf voll Root für den Bot
 
+<br>
+
+### Die Gehirnwäsche, bereinigen des MEMORY
+Der Bot wird sein IDENTITY und seine SOUL und sein TOOL noch kennen!
+
+Was wir bereinigen wollen ist, alles was sich OpenClaw selbst gemert und arschiviert hat. <br>
+OpenClaw ist recht effektiv darin, z. B Chatverläufe zusammen zufassen und diese in einzelne Dateien zwischen zuspeichern. ODer wichtige Sachen die als solche identivieziert wurden und auch wenn wir dem Bot faktische Wahrheiten geben wie z. B. deine Server IP ist 192.168.178.xxx dann legt OpenClaw diese in die MEMORY.md ab.
+<br>
+
+Diesen Balst wollen wir jetzt loswerden, denn wir wollen bis auf den Namen und die Fähigkeiten neu anfangen. Was ist also zu tun?
+<br>
+
+Als erstes halten wir den Dienst an:
+
+```bash
+systemctl stop openclaw
+```
+Wir erinnern uns, wir haben den Agent von OpenClaw in einen Dienst gepackt und einen Autostart gebaut.
+
+<br>
+
+Löschen der Dateien und Verzeichnisse:
+```bash
+rm -rf /root/.openclaw/agents/main/sessions/*
+```
+
+```bash
+rm -rf /root/.openclaw/workspace/memory/*
+```
+
+```bash
+rm -f /root/.openclaw/memory/*.sqlite
+```
+Fertig! <br>
+In der mein/sessions liegt das Kurzzeitgedächtnis hier werden die WhatsApp verläufe, oder die Verläufe aus den andern Messengern oder der Ui gepseichert.
+<br>
+
+Im workspace/ leigen unsere INDENTITY.md, die SOUL.md usw. die Dateien wurden nihct gelöscht. Aber es wurde nach einer MEMORY.md Datei geschaut (Langzeitgedächtnis) diese haben wir gerade entfernt.
+<br>
+
+OpenClaw arbeitet mit dem Dateiformat Markdown .md welches sehr gut Maschinenlesbar ist und dadurch sehr gut von LLMs verarbeitet werden kann. Weiter sind diese Art der Dateien sehr schnell und gut druchsuchbar. Was OpenClaw mit seiner internen Vektor-Suche zu gut kommt. Die Ergebnisse der Vektor-Suche und quasi der Index des Memorys werden in der main.sqlite geschrieben. Jetz passt der suchindex nihct mehr zu den gerade gelöschten Dateien, daher haben wir auch diese gelöscht.
+
+<br>
+
+**OpenClaw wcht jetzt aus seinem Lösch-Koma auf und kennt nur noch seinen Namen und sein Wesen, mehr nicht.** Ein guter Neuanfang ;-)
+
+
 <br> <br>
 
 ...
