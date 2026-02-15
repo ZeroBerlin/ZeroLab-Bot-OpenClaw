@@ -61,7 +61,10 @@ OpenClaw arbeitet mit dem Dateiformat Markdown .md welches sehr gut Maschinenles
 
 <br>
 
-**OpenClaw wcht jetzt aus seinem Lösch-Koma auf und kennt nur noch seinen Namen und sein Wesen, mehr nicht.** Ein guter Neuanfang ;-)
+**OpenClaw wacht jetzt aus seinem Lösch-Koma auf und kennt nur noch seinen Namen und sein Wesen, mehr nicht.** Ein guter Neuanfang ;-)
+
+---
+---
 
 
 <br> <br>
