@@ -3,6 +3,7 @@
 <br>
 
 ![Status](https://img.shields.io/badge/Status-Entwicklung-yellow?logo=git&logoColor=white)
+
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
 ![GPU](https://img.shields.io/badge/GPU-RTX_3070-76B900?logo=nvidia&logoColor=white)
 ![LLM](https://img.shields.io/badge/LLM-Llama%203.2-orange)
