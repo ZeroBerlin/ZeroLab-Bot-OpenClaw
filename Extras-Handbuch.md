@@ -85,7 +85,7 @@ MY_PHONE_NUMBER=+49555Schuh
 
 
 # Whatsapp Gruppen-IDs
-# Gruppe WAMBA
+# Gruppe -Name-
 WHATSAPP_GROUP_xxxxx=12345678901234567890@g.us
 
 # Weiter Keys oder Token und Geheimnisse in der gleichen Syntax
