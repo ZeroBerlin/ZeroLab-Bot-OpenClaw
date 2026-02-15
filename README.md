@@ -19,6 +19,8 @@ Später kann er auch auf die freie Wildbahn losgelassen werden, ohne auf einem R
 
 Das LLM und die Rechenlast der Ki wurden auf einen älteren Rechner mit NVIDIA Karte ausgelagert. Denn nicht jeder möchte zum Spielen und Testen, Tokens auf den Ki-Plattformen bezahlen.
 
+**Weiter Ausbaustufe ist der Wechsel auf das 1. LLM ![Gemini](https://img.shields.io/badge/LLM-Gemini_2.5-4285F4?logo=google&logoColor=white) in der FreeTier Variante (kostenlas), als Fallback ![Claude](https://img.shields.io/badge/LLM-Claude-AE8C7E?logo=anthropic&logoColor=white) hier wird je Token abgerechnet. Ich benutze die PrePaid Variante, Verbrauche nur das was du vorher eingezahlt hast. Un wenn alles nihcts mehr hilft dann gehts zurück auf die langsame Hardware -offlibe- ![LLM](https://img.shields.io/badge/LLM-Llama%203.2-orange) .**
+
 ---
 
 ### Was mir wichtig ist:
