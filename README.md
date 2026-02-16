@@ -1,5 +1,15 @@
 # 🦞 ZeroLab OpenClaw Edition | ![Status](https://img.shields.io/badge/Status-Entwicklung-yellow?logo=git&logoColor=white)
 
+---
+
+📈 Roadmap
+• [x] Grundlegendes Setup auf Windows 11
+• [x] Anbindung an LM Studio (Llama 3.2)
+• [x] GitHub "Clean Slate" Release
+• [ ] Fallback-Strategie (Hybrid Cloud/Lokal)
+
+---
+
 <br>
 
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
