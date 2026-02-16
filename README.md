@@ -4,9 +4,9 @@
 
 📈 Roadmap
 • [x] Grundlegendes Setup auf Windows 11
-• [x] Anbindung an LM Studio (Llama 3.2)
+• [ ] Anbindung an LM Studio (Llama 3.2)
 • [x] GitHub "Clean Slate" Release
-• [ ] Fallback-Strategie (Hybrid Cloud/Lokal)
+• [x] Fallback-Strategie (Hybrid Cloud/Lokal)
 
 ---
 
