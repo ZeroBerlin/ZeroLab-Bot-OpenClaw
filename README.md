@@ -2,7 +2,7 @@
 
 ---
 
-📈 Roadmap
+📈 Roadmap <br>
 • [x] Grundlegendes Setup auf Windows 11
 • [ ] Anbindung an LM Studio (Llama 3.2)
 • [x] GitHub "Clean Slate" Release
