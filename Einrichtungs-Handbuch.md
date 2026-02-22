@@ -7,7 +7,7 @@
 
 Die Example Dateien befinden sich im Unterordner .openclaw-adjusted/ , die Konfig openlaw.json und die example-env verlinke ich hier driekt.
 <br>
-[📝 Demo-Code ansehen: example-env.md (inkl. Kommentare)](./.openclaw-adjusted/example-env.txt)
+[📝 Demo-Code ansehen: example-env.txt (inkl. Kommentare)](./.openclaw-adjusted/example-env.txt)
 <br>
 [⚙️ Demo-Code ansehen: openclaw.example.json (inkl. Kommentare)](./.openclaw-adjusted/openclaw.example.json)
 

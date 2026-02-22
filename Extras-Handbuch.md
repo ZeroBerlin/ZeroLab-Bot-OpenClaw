@@ -121,7 +121,7 @@ OPENCLAW_GATEWAY_PASSWORD=hier kommt das Passwort für das Gateway / Web-Ui rein
 ```
 <br>
 
-[📝 Demo-Code ansehen: example-env.md (inkl. Kommentare)](./.openclaw-adjusted/example-env.md)
+[📝 Demo-Code ansehen: example-env.txt (inkl. Kommentare)](./.openclaw-adjusted/example-env.txt)
 
 <br>
 
