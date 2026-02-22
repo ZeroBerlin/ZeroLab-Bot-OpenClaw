@@ -1,5 +1,15 @@
 # 🦞 ZeroLab OpenClaw Edition | ![Status](https://img.shields.io/badge/Status-Entwicklung-yellow?logo=git&logoColor=white)
 
+---
+
+📈 Roadmap <br>
+• [x] Setup auf LXC
+• [ ] Anbindung an LM Studio (Llama 3.2)
+• [x] GitHub "Clean Slate" Release
+• [x] Fallback-Strategie (Hybrid Cloud/Lokal)
+
+---
+
 <br>
 
 ![Hardware](https://img.shields.io/badge/Server-Proxmox%20LXC-blue)
@@ -112,20 +122,12 @@ Da die echten Configs nicht im Repo sind, nutze die Vorlagen im Ordner .openclaw
 openclaw gateway start
 ```
 
-----
+---
 🧠 Das "Gehirn" (Prompts)
 Der Charakter des Bots wird durch Markdown-Dateien im Root-Verzeichnis gesteuert:
 • IDENTITY.md: Definiert die Persona (Nerd, direkt, kein Assistent).
 • SOUL.md: Die Prinzipien ("Sei ehrlich und eigenwillig").
 • TOOLS.md: Regelwerk für Werkzeuge ("Denke in Bash").
 
-----
-📈 Roadmap
-• [x] Grundlegendes Setup auf Windows 11
-• [x] Anbindung an LM Studio (Llama 3.2)
-• [x] GitHub "Clean Slate" Release
-• [ ] Fallback-Strategie (Hybrid Cloud/Lokal)
-• [ ] Erweiterung der lokalen Tools
-
-----
+---
 Project by ZeroBerlin - Tech Thinks Gaming & Tutorials
