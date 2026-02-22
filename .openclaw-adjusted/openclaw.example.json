@@ -1,13 +1,20 @@
-// Hier gehts los, ein Kommentar und Leerzeilen sind erlaubt
-
 {
+  // --- Metadaten ---
+  "meta": {
+    "lastTouchedVersion": "2026.2.12"
+  },
+
+  // --- Nachrichten-Verhalten ---
   "messages": {
     "ackReactionScope": "group-mentions"
   },
+
+  // --- KI-Modelle & Provider ---
   "models": {
     "providers": {
       "google": {
         "baseUrl": "https://generativelanguage.googleapis.com",
+        // WICHTIG: API-Key wird sicher aus der .env-Datei geladen
         "apiKey": "${GOOGLE_API_KEY}",
         "models": [
           {
@@ -19,6 +26,8 @@
       }
     }
   },
+
+  // --- Agenten-Konfiguration ---
   "agents": {
     "defaults": {
       "maxConcurrent": 4,
@@ -30,41 +39,54 @@
         "memoryFlush": { "enabled": true }
       },
       "workspace": "/root/.openclaw/workspace",
-
       "model": {
-        // 1. Primäres LLM Google Gemini (kostenlos)
+        // 1. Primaeres LLM Google Gemini (kostenlos)
         "primary": "google/gemini-2.5-flash",
-        
-        // 2. Fallback auf Anthropic Claude, wenn Google das Limit erreicht (429)
+        // 2. Fallback auf Anthropic Claude, wenn Google limitiert ist
         "fallbacks": [
           "anthropic/claude-sonnet-4-5"
         ]
+      },
+      // NEU: Sandbox deaktivieren
+      // Dadurch laeuft ZeroLab direkt als "root" auf dem Ubuntu LXC-Host
+      "sandbox": {
+        "mode": "off"
       }
     }
   },
+
+  // --- Werkzeug-Richtlinien (Terminal-Kontrolle) ---
+  "tools": {
+    "exec": {
+      // Erlaubt das Ausfuehren aller Befehle auf dem Host ohne Whitelist-Pruefung
+      "security": "full",
+      // Schaltet die interaktive Nachfrage ab (Gibt dem Agenten volle Autonomie)
+      "ask": "off"
+    }
+  },
+
+  // --- Gateway (Web-UI & Netzwerk) ---
   "gateway": {
-    "mode": "local",
-    "auth": {
-      "mode": "token",
-      "token": "${OPENCLAW_GATEWAY_TOKEN}"
-    },
     "port": 18789,
-    "bind": "loopback",
+    "mode": "local",
+    // "lan" macht das Dashboard im gesamten Heimnetzwerk erreichbar
+    "bind": "lan",
+    "auth": {
+      "mode": "password",
+      // WICHTIG: Passwort wird sicher aus der .env-Datei geladen
+      "password": "${OPENCLAW_GATEWAY_PASSWORD}"
+    },
+    "controlUi": {
+      // Erlaubt lokalen HTTP-Zugriff im Heimnetzwerk (ohne HTTPS/Tailscale)
+      "allowInsecureAuth": true
+    },
     "tailscale": {
       "mode": "off",
       "resetOnExit": false
-    },
-    "nodes": {
-      "denyCommands": [
-        "camera.snap",
-        "camera.clip",
-        "screen.record",
-        "calendar.add",
-        "contacts.add",
-        "reminders.add"
-      ]
     }
   },
+
+  // --- Authentifizierungsprofile ---
   "auth": {
     "profiles": {
       "google:default": {
@@ -73,6 +95,8 @@
       }
     }
   },
+
+  // --- Plugins ---
   "plugins": {
     "entries": {
       "whatsapp": {
@@ -80,39 +104,38 @@
       }
     }
   },
+
+  // --- Messenger-Kanaele ---
   "channels": {
     "whatsapp": {
       "selfChatMode": true,
       "dmPolicy": "allowlist",
+      "responsePrefix": "[ZeroLab] ",
       "allowFrom": [
+        // WICHTIG: Eigene Telefonnummer wird sicher aus der .env-Datei geladen
         "${MY_PHONE_NUMBER}"
       ]
     }
   },
+
+  // --- Hooks (Hintergrund-Automatisierungen) ---
   "hooks": {
     "internal": {
       "enabled": true,
       "entries": {
+        // Meldet sich automatisch nach einem Neustart (BOOT.md)
         "boot-md": {
           "enabled": true
         },
+        // Flugschreiber: Protokolliert alle Admin-Befehle
         "command-logger": {
           "enabled": true
         },
+        // Episodisches Gedaechtnis: Schreibt Zusammenfassungen bei /new
         "session-memory": {
           "enabled": true
         }
       }
     }
-  },
-  "wizard": {
-    "lastRunAt": "2026-02-13T17:24:12.522Z",
-    "lastRunVersion": "2026.2.12",
-    "lastRunCommand": "onboard",
-    "lastRunMode": "local"
-  },
-  "meta": {
-    "lastTouchedVersion": "2026.2.12",
-    "lastTouchedAt": "2026-02-13T17:24:12.539Z"
   }
 }
