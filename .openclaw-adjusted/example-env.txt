@@ -8,7 +8,7 @@
 # Varaiable für openclaw.json | "${OPENCLAW_GATEWAY_TOKEN}" | "token": "${OPENCLAW_GATEWAY_TOKEN}"
 
 # alter OPENCLAW TOKEN
-# OPENCLAW_GATEWAY_TOKEN=18cc164713ce62bcd3ede9afca9c8936e67e4a6901f94dac
+# OPENCLAW_GATEWAY_TOKEN=18c..............................alt-dac
 OPENCLAW_GATEWAY_TOKEN=hier kommt der Gateway-Token rein (ksjdahfgksghkdsjgfhskdjdfgh)
 
 # aktueller OPENCLAW TOKEN
