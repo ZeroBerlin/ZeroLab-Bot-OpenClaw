@@ -137,6 +137,12 @@ Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg
 
 ![Chat-Fenster OpenClaw Dashboard](./assets/image/openclaw-web-config.png)
 
+
+---
+---
+## *** Der Voll-Zugriff im LXC Container ***
+
+
 ...
 
 
