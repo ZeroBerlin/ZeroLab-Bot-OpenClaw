@@ -153,7 +153,7 @@ Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg
 
 ...
 
-Hier wird noch wild und unformatiert alles Reingeworfen.
+Hier wird noch wild und unformatiert alles reingeworfen.
 
 ---
 
