@@ -119,6 +119,12 @@ Der Eintrag ist in der .env vorzunehmen, die Syntax steht in der example-env.md
 # Mein eigenes Openlcaw Passwort
 OPENCLAW_GATEWAY_PASSWORD=hier kommt das Passwort für das Gateway / Web-Ui rein (Geheimes-Passwort!123456)
 ```
+<br>
+
+[📝 Demo-Code ansehen: example-env.md (inkl. Kommentare)](./.openclaw-adjusted/example-env.md)
+
+<br>
+
 Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum chatten aufgerufen werden. <br>
 Damit die Variablen neu eingelesen werden, starten wir den Dienst neu:
 
@@ -185,6 +191,12 @@ Suche den Block `"agents"` -> `"defaults"` und ändere den `"sandbox"`-Modus auf
 • "security": "full": Erlaubt das Ausführen aller Bash-Befehle auf dem Host, ohne dass diese vorher in einer Whitelist genehmigt werden müssen.
 
 • "ask": "off": Schaltet die interaktive Nachfrage im Chat ab ("Darf ich diesen Befehl ausführen?"). Der Agent führt Befehle nun komplett autonom aus.
+
+<br>
+
+[⚙️ Demo-Code ansehen: openclaw.example.json (inkl. Kommentare)](./.openclaw-adjusted/openclaw.example.json)
+
+<br>
 
 **Neustart des Gateways** <br>
 Damit OpenClaw aus dem "Gefängnis" entlassen wird und die neuen Rechte greifen, muss der Systemdienst neu gestartet werden:
