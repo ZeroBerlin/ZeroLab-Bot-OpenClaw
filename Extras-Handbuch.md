@@ -142,6 +142,10 @@ Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg
 ---
 ## *** Der Voll-Zugriff im LXC Container ***
 
+Jetzt machen wir uns an die Befreiung von OpenClaw aus seinem `.openclaw`-Gefängnis, ohne jedoch die **Sicherheit und Kontrolle** ganz über Board zu werfen. Da wir in einem LXC - Container arbeiten ist es
+<br>
+**jetzt angebracht ein BackUp vom LXC vorzunehmen.**
+
 
 ...
 
