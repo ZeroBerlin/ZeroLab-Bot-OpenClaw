@@ -158,6 +158,28 @@ Jetzt machen wir uns an die Befreiung von OpenClaw aus seinem `.openclaw`-Gefän
 
 Standardmäßig führt OpenClaw sicherheitskritische Befehle in einer isolierten Docker-Sandbox aus (`sandbox.mode: "non-main"` oder `"all"`). Damit der Agent den LXC-Container (Host) als echter Admin (Root) verwalten, warten und konfigurieren kann, müssen wir diese Sandbox deaktivieren und die Berechtigungen für das Terminal-Werkzeug hochstufen.
 
+---
+
+### 💡 Exkurs: Architektur-Verständnis (System-Rechte vs. KI-Rechte)
+
+Um zu verstehen, wie die Berechtigungen für ZeroLab funktionieren, muss man die strikte Trennung zwischen dem **Linux-Betriebssystem** und der **Applikation (OpenClaw)** kennen. Die Rechtevergabe erfolgt bei diesem Setup auf zwei Ebenen, die nahtlos ineinandergreifen müssen:
+
+**1. Die System-Ebene (Das physische Fundament)**
+Damit OpenClaw auf dem Host (dem LXC-Container) überhaupt systemweite Befehle ausführen *kann*, muss der Linux-Prozess selbst mit den entsprechenden Rechten laufen. Dies wurde bereits bei der initialen Basis-Installation des Daemons konfiguriert:
+*   **Datei:** `/etc/systemd/system/openclaw.service`
+*   **Einstellung:** `User=root`
+*   **Wirkung:** Der Hintergrunddienst hat auf Betriebssystem-Ebene die physische Macht, alles auf dem LXC-Container zu verwalten.
+
+**2. Die Applikations-Ebene (Die interne KI-Kontrolle)**
+Obwohl der Prozess Linux-Root-Rechte besitzt, greifen standardmäßig die **internen Sicherheitsmechanismen** der Applikation, um zu verhindern, dass die KI diese Rechte versehentlich oder durch Prompt-Injection bösartig nutzt. 
+*   **Datei:** `~/.openclaw/openclaw.json`
+*   **Einstellung:** `sandbox.mode: "off"` und `tools.exec.security: "full"`
+*   **Wirkung:** Erst diese Konfiguration entfesselt die KI. Wir erlauben dem Agenten *intern*, die Root-Rechte, die das Betriebssystem ihm bereithält, auch wirklich autonom und ohne ständige Nachfrage im Chat zu nutzen.
+
+**Fazit:** Der System-Dienst reicht der KI das "Admin-Schwert" (Ebene 1), aber erst durch unsere JSON-Konfiguration (Ebene 2) erlauben wir ZeroLab, dieses Schwert auch selbstständig einzusetzen.
+
+---
+
 ### 1. Anpassung der `openclaw.json`
 Öffne die Datei `~/.openclaw/openclaw.json` auf dem LXC-Container. Wir müssen zwei entscheidende Sicherheitsmechanismen anpassen.
 
