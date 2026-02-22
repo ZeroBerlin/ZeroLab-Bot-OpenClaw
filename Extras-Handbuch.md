@@ -65,6 +65,62 @@ OpenClaw arbeitet mit dem Dateiformat Markdown .md welches sehr gut Maschinenles
 
 ---
 ---
+## *** Das OpenClaw Gateway Dashboard (Web-UI) ***
+
+Da ich Openclaw in einem LXC - Container in einer quasi Isolierten Umgebung betreibe, möchte ich nicht permanent mit meinem Handy und dem Messenger (in meinem Fall WhatsApp) interagieren. die Gründe können vielfältig sein, aber meine Hauptgründe sind 1. ein kleines Display im Gegensatz zu meinem Monitor und 2. die virtuelle Handy - Tastatur im Gegensatz zu meiner richtigen PC-Tastatur.
+<br> <br>
+Was also tun? <br>
+**Ich möchte gerne mit dem Webbrowser auf meinem PC arbeiten.**
+<br> <br>
+Also eine Web-Ui und eine Verbindung zum Agent. **auf gehts**
+<br>
+Ziel dieser Konfiguration ist es, das Dashboard im lokalen Netzwerk über den Browser aufzurufen und mit einem Passwort zu schützen.
+
+---
+
+**Schritt 1** - Anpassung der openclaw.json
+<br>
+Nun teilen wir dem Gateway mit, dass es den Passwort-Modus nutzen soll und erlauben den Zugriff über das lokale HTTP-Netzwerk.
+<br> <br>
+Durch "bind": "lan" wird das Gateway im gesamten Heimnetzwerk erreichbar.
+Öffne die Datei ~/.openclaw/openclaw.json und passe den Block gateway wie folgt an:
+<br> <br>
+
+```bash
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "auth": {
+      "mode": "password",
+      "password": "${OPENCLAW_GATEWAY_PASSWORD}"
+    },
+    "controlUi": {
+      "allowInsecureAuth": true
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+```
+**"password": "${OPENCLAW_GATEWAY_PASSWORD}"** <br>
+Hier wird wieder das Passwort in die .env ausgelagert.
+<br> <br>
+
+Der Eintrag ist in der .env vorzunehmen, die Syntax steht in der example-env.md
+```bash
+# Mein eigenes Openlcaw Passwort
+OPENCLAW_GATEWAY_PASSWORD=hier kommt das Passwort für das Gateway / Web-Ui rein (Geheimes-Passwort!123456)
+```
+Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum chatten aufgerufen werden.
+<br>
+![Chat-Fenster OpenClaw Dashboard](./assets/openclaw-web-chat.png)
+
+...
+
+
+
 
 
 <br> <br>

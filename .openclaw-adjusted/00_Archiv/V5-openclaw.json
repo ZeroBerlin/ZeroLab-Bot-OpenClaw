@@ -1,0 +1,115 @@
+{
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "models": {
+    "providers": {
+      "google": {
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "apiKey": "${GOOGLE_API_KEY}",
+        "models": [
+          {
+            "id": "gemini-2.5-flash",
+            "name": "Gemini 2.5 Flash",
+            "contextWindow": 200000
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "memoryFlush": { "enabled": true }
+      },
+      "workspace": "/root/.openclaw/workspace",
+      "model": {
+        // 1. Primäres LLM Google Gemini (kostenlos)
+        "primary": "google/gemini-2.5-flash",
+        // 2. Fallback auf Anthropic Claude, wenn Google das Limit erreicht (429)
+        "fallbacks": [
+          "anthropic/claude-sonnet-4-5"
+        ]
+      }
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    },
+    "port": 18789,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "calendar.add",
+        "contacts.add",
+        "reminders.add"
+      ]
+    }
+  },
+  "auth": {
+    "profiles": {
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true
+      }
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "selfChatMode": true,
+      "dmPolicy": "allowlist",
+      "responsePrefix": "[ZeroLab] ",
+      "allowFrom": [
+        "${MY_PHONE_NUMBER}"
+      ]
+    }
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-13T17:24:12.522Z",
+    "lastRunVersion": "2026.2.12",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.2.12",
+    "lastTouchedAt": "2026-02-13T17:24:12.539Z"
+  }
+}
