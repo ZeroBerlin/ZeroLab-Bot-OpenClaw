@@ -117,6 +117,10 @@ Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum c
 <br>
 ![Chat-Fenster OpenClaw Dashboard](./assets/image/openclaw-web-chat.png)
 
+Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg unter dem Menü-Punkt **"Overview"** siehe Bildschirmfoto:
+
+![Chat-Fenster OpenClaw Dashboard](./assets/image/openclaw-web-config.png)
+
 ...
 
 
