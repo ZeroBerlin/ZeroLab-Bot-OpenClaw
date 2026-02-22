@@ -139,18 +139,68 @@ Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg
 
 
 ---
----
 ## *** Der Voll-Zugriff im LXC Container ***
 
 Jetzt machen wir uns an die Befreiung von OpenClaw aus seinem `.openclaw`-Gefängnis, ohne jedoch die **Sicherheit und Kontrolle** ganz über Board zu werfen. Da wir in einem LXC - Container arbeiten ist es
 <br>
 **jetzt angebracht ein BackUp vom LXC vorzunehmen.**
 
+<br>
+
+--------------------------------------------------------------------------------
+## 🔓 <br> Schritt 2: Vollzugriff und Sandbox-Deaktivierung (Root-Rechte im LXC)
+
+Standardmäßig führt OpenClaw sicherheitskritische Befehle in einer isolierten Docker-Sandbox aus (`sandbox.mode: "non-main"` oder `"all"`). Damit der Agent den LXC-Container (Host) als echter Admin (Root) verwalten, warten und konfigurieren kann, müssen wir diese Sandbox deaktivieren und die Berechtigungen für das Terminal-Werkzeug hochstufen.
+
+### 1. Anpassung der `openclaw.json`
+Öffne die Datei `~/.openclaw/openclaw.json` auf dem LXC-Container. Wir müssen zwei entscheidende Sicherheitsmechanismen anpassen.
+
+**A. Die Sandbox deaktivieren**
+Suche den Block `"agents"` -> `"defaults"` und ändere den `"sandbox"`-Modus auf `"off"`. Dadurch läuft ZeroLab nicht mehr im isolierten Container, sondern direkt auf dem Ubuntu-Hostsystem.
+
+```bash
+  "agents": {
+    "defaults": {
+      "sandbox": {
+        "mode": "off"
+      },
+      // ... restliche Agent-Einstellungen ...
+    }
+  },
+```
+
+**B. Terminal-Rechte (Exec Tools) freigeben** Füge einen neuen Block "tools" auf der obersten Ebene der JSON (z. B. unter dem agents-Block) ein. Hier heben wir die Whitelist-Prüfung für Befehle auf und schalten die Nachfrage ab.
+
+```bash
+  "tools": {
+    "exec": {
+      "security": "full",
+      "ask": "off"
+    }
+  },
+```  
+
+**Erklärung der Parameter:** <br>
+
+• "security": "full": Erlaubt das Ausführen aller Bash-Befehle auf dem Host, ohne dass diese vorher in einer Whitelist genehmigt werden müssen.
+
+• "ask": "off": Schaltet die interaktive Nachfrage im Chat ab ("Darf ich diesen Befehl ausführen?"). Der Agent führt Befehle nun komplett autonom aus.
+
+**Neustart des Gateways** <br>
+Damit OpenClaw aus dem "Gefängnis" entlassen wird und die neuen Rechte greifen, muss der Systemdienst neu gestartet werden:
+
+```bash
+systemctl restart openclaw
+```
+
+Ergebnis: Der Agent hat nun Vollzugriff auf das Linux-Dateisystem des LXC-Containers und agiert mit vollen Root-Rechten.
 
 ...
+<br> <br> <br>
 
-
-
+---
+---
+---
 
 
 <br> <br>
