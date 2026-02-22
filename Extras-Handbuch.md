@@ -115,7 +115,7 @@ OPENCLAW_GATEWAY_PASSWORD=hier kommt das Passwort für das Gateway / Web-Ui rein
 ```
 Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum chatten aufgerufen werden.
 <br>
-![Chat-Fenster OpenClaw Dashboard](./assets/openclaw-web-chat.png)
+![Chat-Fenster OpenClaw Dashboard](./assets/image/openclaw-web-chat.png)
 
 ...
 
