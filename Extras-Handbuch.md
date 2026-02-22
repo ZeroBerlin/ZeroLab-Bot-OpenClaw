@@ -104,17 +104,33 @@ Durch "bind": "lan" wird das Gateway im gesamten Heimnetzwerk erreichbar.
     }
   },
 ```
+
+Hinweis zu allowInsecureAuth: Da wir im lokalen Heimnetzwerk oft kein SSL-Zertifikat (HTTPS) haben, muss dieser Wert auf true stehen, damit OpenClaw den Login über eine normale HTTP-Verbindung ohne vorheriges Device-Pairing erlaubt.
+
+<br>
+
 **"password": "${OPENCLAW_GATEWAY_PASSWORD}"** <br>
 Hier wird wieder das Passwort in die .env ausgelagert.
-<br> <br>
+
+<br>
 
 Der Eintrag ist in der .env vorzunehmen, die Syntax steht in der example-env.md
 ```bash
 # Mein eigenes Openlcaw Passwort
 OPENCLAW_GATEWAY_PASSWORD=hier kommt das Passwort für das Gateway / Web-Ui rein (Geheimes-Passwort!123456)
 ```
-Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum chatten aufgerufen werden.
+Jetzt kann unter der IP-Adresse von Openclaw und dem Port 18789 die Web-Ui zum chatten aufgerufen werden. <br>
+Damit die Variablen neu eingelesen werden, starten wir den Dienst neu:
+
+```bash
+systemctl restart openclaw
+```
+
+Der Browser-Aufruf: Öffne an deinem PC den Webbrowser und navigiere zur IP-Adresse deines LXC-Containers, z. B.: http://192.168.xxx.xxx:18789
 <br>
+Beim ersten Aufruf gehe in das Menü Overview. Gib hier das oben vergebene Passwort ein. Ab sofort kannst du bequem vom Schreibtisch aus mit deinem ZeroLab-Agenten chatten!
+<br>
+
 ![Chat-Fenster OpenClaw Dashboard](./assets/image/openclaw-web-chat.png)
 
 Das in der .env hinterlegte Passwort wird jedesmal benötigt. Die Eingabe erfolg unter dem Menü-Punkt **"Overview"** siehe Bildschirmfoto:
