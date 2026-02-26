@@ -24,6 +24,9 @@ systemctl status openclaw
 Zeigt ob alle Konfiguratioen sauber eingelesen werden können
 
 ---
+```bash
+systemctl --user stop openclaw-gateway.service
+```
 
 ```bash
 systemctl stop openclaw
