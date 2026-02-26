@@ -26,6 +26,17 @@ Zeigt ob alle Konfiguratioen sauber eingelesen werden können
 ---
 
 ```bash
+systemctl stop openclaw
+
+openclaw gateway --verbose
+```
+Diese beiden Befehle kann man als eine Art Live-Flugschreiber betrachten. <br>
+Das Gateway wird gestoppt, denn es sollte nur einmal laufen und würde eine Fehlermeldung ausgeben. <br> <br>
+Mit dem unterren Befehl wird das Gateway neu gestartet und zeigt im Terminal alle Aktionen live an.
+
+---
+
+```bash
 openclaw tui
 ```
 
